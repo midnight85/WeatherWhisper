@@ -1,0 +1,14 @@
+export const SEARCH_SCREEN = 'SearchScreen';
+export const HOME_SCREEN = 'HomeScreen';
+export const FAVORITES_SCREEN = 'FavoritesScreen';
+export const ACCOUNT_SCREEN = 'AccountScreen';
+export const ONBOARDING_SCREEN = 'OnboardingScreen';
+export const MAIN = 'Main';
+export const FORECAST = 'Forecast';
+export const HOME = 'Home';
+export const AQI_DETAILS = 'AqiDetails';
+export const ACCOUNT = 'AqiDetails';
+export const ACCOUNT_EDIT_PROFILE = 'AqiDetails';
+export const ACCOUNT_UNITS = 'AqiDetails';
+export const ACCOUNT_LOCATION_SETTING = 'AqiDetails';
+export const ACCOUNT_ABOUT = 'AqiDetails';

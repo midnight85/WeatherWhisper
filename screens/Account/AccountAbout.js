@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, StyleSheet } from "react-native";
+import React from 'react';
+import {Text, StyleSheet} from 'react-native';
 
 function AccountAbout() {
   return <Text>AccountAbout</Text>;

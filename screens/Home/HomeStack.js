@@ -1,9 +1,10 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 import Forecast from './Forecast';
 import AqiDetails from './AqiDetails';
+import {AQI_DETAILS, FORECAST, HOME} from '../../constants/ScreenNames';
 
 const Stack = createStackNavigator();
 
@@ -14,14 +15,20 @@ function HomeStack() {
         ...TransitionPresets.SlideFromRightIOS,
       }}>
       <Stack.Screen
-        name="Home"
+        name={HOME}
         component={HomeScreen}
         options={{
           headerLeft: () => {},
         }}
       />
-      <Stack.Screen name="Forecast" component={Forecast} />
-      <Stack.Screen name="AqiDetails" component={AqiDetails} />
+      <Stack.Screen
+        name={FORECAST}
+        component={Forecast}
+      />
+      <Stack.Screen
+        name={AQI_DETAILS}
+        component={AqiDetails}
+      />
     </Stack.Navigator>
   );
 }
