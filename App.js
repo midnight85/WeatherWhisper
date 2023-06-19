@@ -18,6 +18,14 @@ import {
   OnboardingScreen,
   SearchScreen,
 } from './screens';
+import {
+  ACCOUNT_SCREEN,
+  FAVORITES_SCREEN,
+  HOME_SCREEN,
+  MAIN,
+  ONBOARDING_SCREEN,
+  SEARCH_SCREEN,
+} from './constants/ScreenNames';
 
 const BottomTabs = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,14 +34,20 @@ function Main() {
   return (
     <BottomTabs.Navigator>
       <BottomTabs.Screen
-        name="HomeScreen"
+        name={HOME_SCREEN}
         component={HomeStack}
         options={{headerShown: false}}
       />
-      <BottomTabs.Screen name="SearchScreen" component={SearchScreen} />
-      <BottomTabs.Screen name="FavoritesScreen" component={FavoritesScreen} />
       <BottomTabs.Screen
-        name="AccountScreen"
+        name={SEARCH_SCREEN}
+        component={SearchScreen}
+      />
+      <BottomTabs.Screen
+        name={FAVORITES_SCREEN}
+        component={FavoritesScreen}
+      />
+      <BottomTabs.Screen
+        name={ACCOUNT_SCREEN}
         component={AccountStack}
         options={{headerShown: false}}
       />
@@ -44,10 +58,15 @@ function Main() {
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Main" screenOptions={{}}>
-        <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+      <Stack.Navigator
+        initialRouteName="Main"
+        screenOptions={{}}>
         <Stack.Screen
-          name="Main"
+          name={ONBOARDING_SCREEN}
+          component={OnboardingScreen}
+        />
+        <Stack.Screen
+          name={MAIN}
           component={Main}
           options={{headerShown: false}}
         />
