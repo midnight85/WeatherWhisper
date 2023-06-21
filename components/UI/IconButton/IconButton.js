@@ -7,7 +7,8 @@ function IconButton({
   onPress,
   size,
   color,
-  type,
+  outlined,
+  filled,
   background,
   disabled,
 }) {
@@ -17,16 +18,12 @@ function IconButton({
       disabled={disabled}
       style={({pressed}) => [
         styles.container,
-        type === 'filled' && styles.filled,
-        type === 'outlined' && styles.outlined,
+        filled && styles.filled,
+        outlined && styles.outlined,
         background && {backgroundColor: background},
-        pressed
-          ? type === 'filled'
-            ? styles.filledPressed
-            : styles.pressed
-          : null,
+        pressed ? (filled ? styles.filledPressed : styles.pressed) : null,
         disabled
-          ? type === 'outlined'
+          ? outlined
             ? styles.disabled.borderColor
             : styles.disabled
           : null,
