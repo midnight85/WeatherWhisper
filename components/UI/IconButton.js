@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Pressable} from 'react-native';
-import {COLORS} from '../../../constants/GlobalStyles';
+import {COLORS} from '../../constants/GlobalStyles';
 
 function IconButton({
   icon: IconComponent,

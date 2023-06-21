@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, Pressable} from 'react-native';
-import {COLORS, TEXT, FONT_WEIGHT} from '../../../constants/GlobalStyles';
+import {COLORS, TEXT, FONT_WEIGHT} from '../../constants/GlobalStyles';
 
 function Button({
   text,
