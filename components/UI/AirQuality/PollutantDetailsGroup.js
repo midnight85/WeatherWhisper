@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {pollutantDetailsData} from './PollutantDetailsData';
 import PollutantDetails from './PollutantDetails';
+import {pollutantDetailsData} from '../../../data/pollutantDetailsData';
 
 function PollutantDetailsGroup() {
   return (
     <View style={styles.container}>
-      {pollutantDetailsData.map((data, index) => {
+      {Object.values(pollutantDetailsData).map((data, index) => {
         return (
           <PollutantDetails
             key={index}

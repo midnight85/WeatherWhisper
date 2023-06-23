@@ -5,7 +5,7 @@ import {FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
 function PollutantDetails({
   icon: Icon,
   title,
-  color,
+  textColor,
   titleColor,
   backgroundColor,
   description,
@@ -14,10 +14,12 @@ function PollutantDetails({
     <View style={[styles.container, {backgroundColor}]}>
       <Icon
         size={24}
-        color={color}
+        color={textColor}
       />
       <Text style={[styles.title, {color: titleColor}]}>{title}</Text>
-      <Text style={[styles.description, {color}]}>{description}</Text>
+      <Text style={[styles.description, {color: textColor}]}>
+        {description}
+      </Text>
     </View>
   );
 }
