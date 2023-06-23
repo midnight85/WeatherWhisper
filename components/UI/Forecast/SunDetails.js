@@ -10,13 +10,13 @@ function SunDetails({value, status}) {
         <Text style={styles.value}>{value}</Text>
         <Text style={styles.text}>{status}</Text>
       </View>
-      {status === 'sunrise' && (
+      {status === 'Sunrise' && (
         <Sunrise
           size={24}
           color={COLORS.secondaryColor700}
         />
       )}
-      {status === 'sunset' && (
+      {status === 'Sunset' && (
         <Sunset
           size={24}
           color={COLORS.secondaryColor700}
