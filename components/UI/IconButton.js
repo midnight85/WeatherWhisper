@@ -29,7 +29,7 @@ function IconButton({
           : null,
       ]}>
       <IconComponent
-        size={size}
+        size={size ? size : 24}
         color={disabled ? styles.disabled.color : color}
       />
     </Pressable>
