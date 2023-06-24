@@ -25,7 +25,9 @@ function PollutantIndex({index}) {
       </View>
       <View style={styles.textContainer}>
         <Text style={[styles.title, {color: titleColor}]}>{title}</Text>
-        <Text style={[styles.description, {color: textColor}]}>
+        <Text
+          style={[styles.description, {color: textColor}]}
+          numberOfLines={5}>
           {description}
         </Text>
       </View>

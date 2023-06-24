@@ -46,7 +46,7 @@ export const pollutantDetailsData = {
     indexColor: COLORS.aqiPoor_ct500_16,
     backgroundColor: COLORS.aqiPoor_ct300_12,
     description:
-      'Poor air quality in this range poses risks, especially for sensitive groups. The general public may also experience respiratory symptoms and worsened health conditions.',
+      'Air quality in this range may have more significant health effects, particularly for sensitive groups. The general public may also experience some respiratory symptoms and aggravation of existing health conditions.',
   },
   5: {
     icon: AqiVeryPoor,
@@ -56,6 +56,6 @@ export const pollutantDetailsData = {
     indexColor: COLORS.aqiVeryPoor_ct500_16,
     backgroundColor: COLORS.aqiVeryPoor_ct300_12,
     description:
-      'The air quality is dangerously poor, posing significant health risks. It is crucial to limit outdoor activities and take precautions to reduce exposure.',
+      'The air quality presents a high health risk to the general population. Breathing in such conditions can lead to severe respiratory distress and a range of health issues. It is imperative for everyone to limit outdoor activities and take necessary precautions to minimize exposure.',
   },
 };
