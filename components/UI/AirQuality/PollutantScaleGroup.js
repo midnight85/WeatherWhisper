@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import PollutantScale from './PollutantScale';
 
 function PollutantScaleGroup({components}) {
