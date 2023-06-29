@@ -3,7 +3,7 @@ import {Text, StyleSheet, View, Button} from 'react-native';
 
 function HomeScreen({navigation}) {
   return (
-    <View>
+    <View style={{backgroundColor: 'white', flex: 1}}>
       <Text>Home1</Text>
       <Button
         title="GoForecast"

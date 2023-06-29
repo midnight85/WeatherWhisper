@@ -7,7 +7,6 @@ import AccountUnits from './AccountUnits';
 import AccountLocationSetting from './AccountLocationSetting';
 import AccountEditProfile from './AccountEditProfile';
 import {
-  A,
   ACCOUNT,
   ACCOUNT_ABOUT,
   ACCOUNT_EDIT_PROFILE,
@@ -21,14 +20,16 @@ function AccountStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        ...TransitionPresets.SlideFromRightIOS,
+        ...TransitionPresets.ModalFadeTransition,
       }}>
       <Stack.Screen
         name={ACCOUNT}
         component={AccountScreen}
-        options={{
-          headerLeft: () => {},
-        }}
+        options={
+          {
+            // headerLeft: () => {},
+          }
+        }
       />
       <Stack.Screen
         name={ACCOUNT_EDIT_PROFILE}

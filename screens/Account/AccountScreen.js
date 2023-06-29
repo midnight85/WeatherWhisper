@@ -29,12 +29,12 @@ function AccountScreen({navigation}) {
           navigation.navigate('AccountAbout');
         }}
       />
-      <Button
-        title="AccountAbout"
-        onPress={() => {
-          navigation.navigate('AccountAbout');
-        }}
-      />
+      {/*<Button*/}
+      {/*  title="AccountAbout"*/}
+      {/*  onPress={() => {*/}
+      {/*    navigation.navigate('AccountAbout');*/}
+      {/*  }}*/}
+      {/*/>*/}
     </View>
   );
 }
