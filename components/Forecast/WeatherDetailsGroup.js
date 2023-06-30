@@ -8,7 +8,7 @@ import {
   Pressure,
   Visibility,
   Wind,
-} from '../../Icons';
+} from '../Icons';
 
 function WeatherDetailsGroup({data}) {
   const weatherDetailsItems = {

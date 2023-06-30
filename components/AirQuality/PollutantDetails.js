@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import {FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
+import {FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
 function PollutantDetails({
   icon: Icon,

@@ -5,14 +5,20 @@ import HomeScreen from './HomeScreen';
 import Forecast from './Forecast';
 import AqiDetails from './AqiDetails';
 import {AQI_DETAILS, FORECAST, HOME} from '../../constants/ScreenNames';
+import {FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
 const Stack = createStackNavigator();
 
 function HomeStack() {
   return (
     <Stack.Navigator
+      // initialRouteName={AQI_DETAILS}
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
+        headerTitleStyle: {
+          ...FONT_WEIGHT.medium,
+          ...TEXT.subT1,
+        },
       }}>
       <Stack.Screen
         name={HOME}
@@ -28,6 +34,9 @@ function HomeStack() {
       <Stack.Screen
         name={AQI_DETAILS}
         component={AqiDetails}
+        options={{
+          title: 'Air quality details',
+        }}
       />
     </Stack.Navigator>
   );

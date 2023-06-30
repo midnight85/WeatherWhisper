@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
-import {COLORS, FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
-import {openweatherIcons} from '../../../assets/openweather_icons';
-import {getDayName} from '../../../utils/Forecast/getDayName';
+import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
+import {openweatherIcons} from '../../assets/openweather_icons';
+import {getDayName} from '../../utils/Forecast/getDayName';
 
 function DayForecast({dt_txt, day, time, temp, icon}) {
   const dayName = getDayName(dt_txt, 3);

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import {COLORS, FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
-import {getComponentMaxValue} from '../../../utils/AirQuality/getComponentMaxValue';
-import {pollutantScaleStyles} from '../../../data/pollutantScaleStyles';
-import {getQualitativeIndex} from '../../../utils/AirQuality/getQualitativeIndex';
+import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
+import {getComponentMaxValue} from '../../utils/AirQuality/getComponentMaxValue';
+import {pollutantScaleStyles} from '../../data/pollutantScaleStyles';
+import {getQualitativeIndex} from '../../utils/AirQuality/getQualitativeIndex';
 
 function PollutantScale({component, value}) {
   const componentName = component.toUpperCase().replace('_', '.');

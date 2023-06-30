@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import {COLORS, FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
+import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
 function WeatherDetails({icon: Icon, value, description}) {
   return (

@@ -11,12 +11,12 @@ import {
   UIManager,
   ScrollView,
 } from 'react-native';
-import {openweatherIcons} from '../../../assets/openweather_icons';
-import {ExpandMore} from '../../Icons';
-import {COLORS, FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
-import {fiveDaysForecast} from '../../../data/FiveDaysForecast';
-import {getDayName} from '../../../utils/Forecast/getDayName';
-import {adaptiveValue} from '../../../utils/adaptiveValue';
+import {openweatherIcons} from '../../assets/openweather_icons';
+import {ExpandMore} from '../Icons';
+import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
+import {fiveDaysForecast} from '../../data/FiveDaysForecast';
+import {getDayName} from '../../utils/Forecast/getDayName';
+import {adaptiveValue} from '../../utils/adaptiveValue';
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental(true);

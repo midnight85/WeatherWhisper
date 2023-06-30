@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import PollutantDetails from './PollutantDetails';
-import {pollutantDetailsData} from '../../../data/pollutantDetailsData';
+import {pollutantDetailsData} from '../../data/pollutantDetailsData';
 
 function PollutantDetailsGroup() {
   return (

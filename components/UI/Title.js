@@ -2,8 +2,8 @@ import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
-function Title({text}) {
-  return <Text style={styles.text}>{text}</Text>;
+function Title({text, style}) {
+  return <Text style={[styles.text, style && style]}>{text}</Text>;
 }
 
 const styles = StyleSheet.create({

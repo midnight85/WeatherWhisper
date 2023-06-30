@@ -1,9 +1,9 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-import {pollutantDetailsData} from '../../../data/pollutantDetailsData';
-import {FONT_WEIGHT, TEXT} from '../../../constants/GlobalStyles';
+import {pollutantDetailsData} from '../../data/pollutantDetailsData';
+import {FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
-function PollutantIndex({index}) {
+function PollutantIndex({index, style}) {
   const {
     icon: Icon,
     title,
@@ -14,7 +14,7 @@ function PollutantIndex({index}) {
     description,
   } = pollutantDetailsData[index];
   return (
-    <View style={[styles.container, {backgroundColor}]}>
+    <View style={[styles.container, {backgroundColor}, style && style]}>
       <View style={[styles.indexContainer, {backgroundColor: indexColor}]}>
         <Icon
           size={24}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
-import {COLORS, TEXT, FONT_WEIGHT} from '../../../constants/GlobalStyles';
+import {COLORS, TEXT, FONT_WEIGHT} from '../../constants/GlobalStyles';
 
 function MainForecast() {
   return (
@@ -20,7 +20,7 @@ function MainForecast() {
         <Text style={styles.text}>°F</Text>
         <View style={styles.iconContainer}>
           <Image
-            source={require('../../../assets/openweather_icons/02d.png')}
+            source={require('../../assets/openweather_icons/02d.png')}
             style={styles.weatherIcon}
           />
         </View>
