@@ -1,6 +1,4 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
-import {COLORS} from '../../constants/GlobalStyles';
 import {
   PollutantDetailsGroup,
   PollutantIndex,
@@ -37,13 +35,5 @@ function AqiDetails() {
     </ScrollViewContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.baseColors_white,
-    padding: 16,
-  },
-});
 
 export default AqiDetails;

@@ -10,7 +10,7 @@ import {
   Wind,
 } from '../Icons';
 
-function WeatherDetailsGroup({data}) {
+function WeatherDetailsGroup({data, style}) {
   const weatherDetailsItems = {
     humidity: {
       icon: HumidityPercentage,
@@ -45,7 +45,7 @@ function WeatherDetailsGroup({data}) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style && style]}>
       {Object.keys(data).map((key, index) => (
         <WeatherDetails
           key={index}

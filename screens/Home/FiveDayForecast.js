@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 import {ScrollViewContainer} from '../../components/UI';
 import DayForecast from '../../components/Forecast/DayForecast';
 import DayForecastDropdown from '../../components/Forecast/DayForecastDropdown';
@@ -73,7 +73,5 @@ function FiveDayForecast() {
     </ScrollViewContainer>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default FiveDayForecast;

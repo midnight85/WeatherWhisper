@@ -19,7 +19,6 @@ function HomeStack() {
     <Stack.Navigator
       // initialRouteName={AQI_DETAILS}
       screenOptions={{
-        ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
           borderBottomWidth: 1,
           borderBottomColor: COLORS.neutralColors200,
@@ -47,7 +46,8 @@ function HomeStack() {
         name={HOME}
         component={HomeScreen}
         options={{
-          headerLeft: () => {},
+          // headerLeft: () => null,
+          headerTitle: () => null,
         }}
       />
       <Stack.Screen
@@ -67,7 +67,5 @@ function HomeStack() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default HomeStack;

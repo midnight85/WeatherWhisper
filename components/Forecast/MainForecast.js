@@ -2,9 +2,9 @@ import React from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
 import {COLORS, TEXT, FONT_WEIGHT} from '../../constants/GlobalStyles';
 
-function MainForecast() {
+function MainForecast({style}) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style && style]}>
       <View style={styles.leftColumn}>
         <Text style={styles.text}>Monday, May 15</Text>
         <View style={styles.tempContainer}>
