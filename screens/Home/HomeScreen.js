@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View, Button} from 'react-native';
+import {AQI_DETAILS, FIVE_DAY_FORECAST} from '../../constants/ScreenNames';
 
 function HomeScreen({navigation}) {
   return (
@@ -7,11 +8,11 @@ function HomeScreen({navigation}) {
       <Text>Home1</Text>
       <Button
         title="GoForecast"
-        onPress={() => navigation.navigate('Forecast')}
+        onPress={() => navigation.navigate(FIVE_DAY_FORECAST)}
       />
       <Button
         title="GoAqiDetails"
-        onPress={() => navigation.navigate('AqiDetails')}
+        onPress={() => navigation.navigate(AQI_DETAILS)}
       />
     </View>
   );

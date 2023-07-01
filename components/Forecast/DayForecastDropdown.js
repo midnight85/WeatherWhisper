@@ -90,7 +90,10 @@ function DayForecastDropdown({dt_txt, main, icon, temp, children}) {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={styles.bottomContainer}>
+          style={styles.bottomContainer}
+          contentContainerStyle={{
+            paddingHorizontal: 16,
+          }}>
           {children}
         </ScrollView>
       )}
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 8,
-    // paddingHorizontal: 16,
+    paddingHorizontal: 16,
     overflow: 'hidden',
   },
   flexRow: {
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     marginTop: 4,
-    // marginHorizontal: -16,
+    marginHorizontal: -16,
     height: adaptiveValue({initialScreenWidth: 328, value: 112}),
   },
   day: {

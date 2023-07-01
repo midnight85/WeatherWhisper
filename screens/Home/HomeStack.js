@@ -2,9 +2,13 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
-import Forecast from './Forecast';
+import FiveDayForecast from './FiveDayForecast';
 import AqiDetails from './AqiDetails';
-import {AQI_DETAILS, FORECAST, HOME} from '../../constants/ScreenNames';
+import {
+  AQI_DETAILS,
+  FIVE_DAY_FORECAST,
+  HOME,
+} from '../../constants/ScreenNames';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 import {ArrowBack} from '../../components/Icons';
 
@@ -47,8 +51,11 @@ function HomeStack() {
         }}
       />
       <Stack.Screen
-        name={FORECAST}
-        component={Forecast}
+        name={FIVE_DAY_FORECAST}
+        component={FiveDayForecast}
+        options={{
+          title: '5 days forecast',
+        }}
       />
       <Stack.Screen
         name={AQI_DETAILS}

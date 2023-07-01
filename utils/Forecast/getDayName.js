@@ -1,3 +1,15 @@
+function isTodayDate(dateString) {
+  const inputDate = new Date(dateString);
+  const currentDate = new Date();
+  // Check if the input date's year, month, and day match with the current date.
+  const isToday =
+    inputDate.getFullYear() === currentDate.getFullYear() &&
+    inputDate.getMonth() === currentDate.getMonth() &&
+    inputDate.getDate() === currentDate.getDate();
+
+  return isToday;
+}
+
 export function getDayName(dateString, len) {
   const days = [
     'Sunday',
@@ -8,8 +20,16 @@ export function getDayName(dateString, len) {
     'Friday',
     'Saturday',
   ];
-  const d = new Date(dateString);
-  const dayName = days[d.getDay()];
+  const inputDate = new Date(dateString);
+  const currentDate = new Date();
+  const dayName = days[inputDate.getDay()];
+  const isToday =
+    inputDate.getFullYear() === currentDate.getFullYear() &&
+    inputDate.getMonth() === currentDate.getMonth() &&
+    inputDate.getDate() === currentDate.getDate();
+  if (isToday) {
+    return 'Today';
+  }
   if (len) {
     return dayName.slice(0, len);
   }

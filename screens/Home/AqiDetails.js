@@ -6,14 +6,14 @@ import {
   PollutantIndex,
   PollutantScaleGroup,
 } from '../../components/AirQuality';
-import {Title, ProvidedBy} from '../../components/UI';
+import {Title, ProvidedBy, ScrollViewContainer} from '../../components/UI';
 import {airPullution} from '../../data/AirPullution';
 
 const components = airPullution.list[0].components;
 
 function AqiDetails() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollViewContainer>
       <PollutantIndex
         index={1}
         style={{marginBottom: 24}}
@@ -34,7 +34,7 @@ function AqiDetails() {
         style={{marginBottom: 16, marginTop: 24}}
       />
       <PollutantDetailsGroup />
-    </ScrollView>
+    </ScrollViewContainer>
   );
 }
 
