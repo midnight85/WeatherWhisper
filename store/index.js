@@ -1,9 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {weatherApi} from './weatherApiSlice';
+import globalStateReducer from './globalStateSlice';
 
 const store = configureStore({
   reducer: {
-    // todos: todoReducer,
+    globalState: globalStateReducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
   },
   middleware: getDefaultMiddleware =>

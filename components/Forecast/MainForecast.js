@@ -1,30 +1,48 @@
 import React from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
 import {COLORS, TEXT, FONT_WEIGHT} from '../../constants/GlobalStyles';
+import {weatherIcons} from '../../assets/weather_icons';
 
-function MainForecast({style}) {
+function MainForecast({
+  localtime,
+  isMetricUnits,
+  temp,
+  maxtemp,
+  mintemp,
+  feelslike,
+  condition_text,
+  icon,
+  style,
+}) {
+  const [day, month, date] = new Date(localtime).toDateString().split(' ');
   return (
     <View style={[styles.container, style && style]}>
       <View style={styles.leftColumn}>
-        <Text style={styles.text}>Monday, May 15</Text>
+        <Text style={styles.text}>
+          {day}, {month} {date}
+        </Text>
         <View style={styles.tempContainer}>
           <View style={styles.temp}>
-            <Text style={styles.tempText}>76</Text>
+            <Text style={styles.tempText}>{Math.round(temp)}</Text>
             <Text style={styles.degreeSymbol}>°</Text>
           </View>
-          <Text style={styles.feelsText}>Feels like 81°</Text>
+          <Text style={styles.feelsText}>
+            Feels like {Math.round(feelslike)}°
+          </Text>
         </View>
-        <Text style={styles.text}>60° / 86°</Text>
+        <Text style={styles.text}>
+          {Math.round(mintemp)}° / {Math.round(maxtemp)}°
+        </Text>
       </View>
       <View style={styles.rightColumn}>
-        <Text style={styles.text}>°F</Text>
+        <Text style={styles.text}>°{isMetricUnits ? 'C' : 'F'}</Text>
         <View style={styles.iconContainer}>
           <Image
-            source={require('../../assets/openweather_icons/02d.png')}
+            source={weatherIcons[icon]}
             style={styles.weatherIcon}
           />
         </View>
-        <Text style={styles.iconDescription}>Clear</Text>
+        <Text style={styles.iconDescription}>{condition_text}</Text>
       </View>
     </View>
   );

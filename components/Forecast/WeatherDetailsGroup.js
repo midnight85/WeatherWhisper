@@ -10,37 +10,37 @@ import {
   Wind,
 } from '../Icons';
 
-function WeatherDetailsGroup({data, style}) {
+function WeatherDetailsGroup({isMetricUnits, data, style}) {
   const weatherDetailsItems = {
     humidity: {
       icon: HumidityPercentage,
       description: 'Humidity',
-      value: data?.humidity,
+      value: `${data.humidity}%`,
     },
     wind: {
       icon: Wind,
       description: 'Wind',
-      value: data?.wind,
+      value: `${Math.round(data.wind)} ${isMetricUnits ? 'kph' : 'mph'}`,
     },
     precipitation: {
       icon: Precipitation,
       description: 'Precipitation',
-      value: data?.precipitation,
+      value: `${data.precipitation}%`,
     },
     cloud: {
       icon: Cloud,
       description: 'Cloud',
-      value: data?.cloud,
+      value: `${data.cloud}%`,
     },
     visibility: {
       icon: Visibility,
       description: 'Visibility',
-      value: data?.visibility,
+      value: `${data.visibility} ${isMetricUnits ? 'km' : 'mi'}`,
     },
     pressure: {
       icon: Pressure,
       description: 'Pressure',
-      value: data?.pressure,
+      value: `${data.pressure} ${isMetricUnits ? 'mb' : 'in'}`,
     },
   };
 

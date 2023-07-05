@@ -8,8 +8,9 @@ const globalState = createSlice({
     // For temperature in Fahrenheit use units=imperial
     // For temperature in Celsius use units=metric
     selectedUnits: 'metric',
+    isMetricUnits: true,
   },
   reducers: {},
 });
-
-export const {} = globalState.reducer;
+export const {} = globalState.actions;
+export default globalState.reducer;

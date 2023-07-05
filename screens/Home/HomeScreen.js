@@ -18,6 +18,12 @@ import {ChevronRight} from '../../components/Icons';
 import {PollutantIndex} from '../../components/AirQuality';
 import {useGetForecastQuery} from '../../store/weatherApiSlice';
 import {weatherApiData} from '../../data/WeatherApiData';
+import {useSelector} from 'react-redux';
+import {isMetricUnits} from '../../utils/isMetricUnits';
+import {getTodayFromForecast} from '../../utils/getTodayFromForecast';
+import {getNearestHourData} from '../../utils/getNearestHourData';
+import {convert12HourTo24Hour} from '../../utils/convert12HourTo24Hour';
+import DayForecastScrollView from '../../components/Forecast/DayForecastScrollView';
 
 const dayForecastData = [
   {dt_txt: '2023-06-21 21:00:00', icon: '04n', temp: '23'},
@@ -28,14 +34,57 @@ const dayForecastData = [
 ];
 
 function HomeScreen({navigation}) {
+  const {selectedUnits, isMetricUnits} = useSelector(
+    store => store.globalState,
+  );
+  const {localtime} = weatherApiData.location;
+  const {forecastday} = weatherApiData.forecast;
+  const todayForecastData = getTodayFromForecast(localtime, forecastday);
+  const {
+    temp_c,
+    temp_f,
+    feelslike_c,
+    feelslike_f,
+    condition,
+    humidity,
+    wind_mph,
+    wind_kph,
+    cloud,
+    vis_km,
+    vis_miles,
+    pressure_mb,
+    pressure_in,
+    air_quality,
+  } = weatherApiData.current;
+  const {maxtemp_c, maxtemp_f, mintemp_c, mintemp_f} = todayForecastData.day;
+  const {chance_of_rain} = getNearestHourData(
+    localtime,
+    todayForecastData.hour,
+  );
+  const {sunrise, sunset} = todayForecastData.astro;
   // const {data: data1} = useGetForecastQuery();
   // weatherApiData
   return (
     <ScrollViewContainer>
-      <MainForecast style={{marginBottom: 8}} />
+      <MainForecast
+        localtime={localtime}
+        isMetricUnits={isMetricUnits}
+        temp={isMetricUnits ? temp_c : temp_f}
+        maxtemp={isMetricUnits ? maxtemp_c : maxtemp_f}
+        mintemp={isMetricUnits ? mintemp_c : mintemp_f}
+        feelslike={isMetricUnits ? feelslike_c : feelslike_f}
+        condition_text={condition.text}
+        icon={condition.icon.split('64x64')[1]}
+        style={{marginBottom: 8}}
+      />
       <WeatherDetailsGroup
+        isMetricUnits={isMetricUnits}
+        data={{
+          humidity: humidity,
+          wind: isMetricUnits ? wind_kph : wind_mph,
+          precipitation: chance_of_rain,
+        }}
         style={{marginBottom: 24}}
-        data={{humidity: '6%', wind: '8 mph', precipitation: 'No'}}
       />
       <View
         style={{
@@ -50,30 +99,40 @@ function HomeScreen({navigation}) {
           onPress={() => navigation.navigate(FIVE_DAY_FORECAST)}
         />
       </View>
+      {/* apply DayForecastScrollView if > 5 days forecast */}
+      {/*<DayForecastScrollView>*/}
       <DayForecastGroup>
-        {dayForecastData.map((item, index) => (
+        {forecastday.slice(0, 5).map((item, index) => (
           <DayForecast
             key={index}
             day
-            {...item}
+            temp={isMetricUnits ? item.day.avgtemp_c : item.day.avgtemp_f}
+            date={item.date}
+            icon={item.day.condition.icon.split('64x64')[1]}
+            pop={item.day.daily_chance_of_rain}
           />
         ))}
       </DayForecastGroup>
+      {/*</DayForecastScrollView>*/}
       <Title
         text="More details"
         style={{marginBottom: 16, marginTop: 24}}
       />
       <WeatherDetailsGroup
         style={{marginBottom: 8}}
-        data={{cloud: '0%', visibility: '31 mi', pressure: '30.10 in'}}
+        data={{
+          cloud: cloud,
+          visibility: isMetricUnits ? vis_km : vis_miles,
+          pressure: isMetricUnits ? pressure_mb : pressure_in,
+        }}
       />
       <View style={{flexDirection: 'row', gap: 8}}>
         <SunDetails
-          value="5:37"
+          value={convert12HourTo24Hour(sunrise)}
           status="Sunrise"
         />
         <SunDetails
-          value="21:14"
+          value={convert12HourTo24Hour(sunset)}
           status="Sunset"
         />
       </View>
@@ -82,7 +141,7 @@ function HomeScreen({navigation}) {
         style={{marginBottom: 16, marginTop: 24}}
       />
       <PollutantIndex
-        index={1}
+        index={air_quality['us-epa-index']}
         style={{marginBottom: 24}}
       />
       <Button
@@ -92,8 +151,8 @@ function HomeScreen({navigation}) {
       />
       <ProvidedBy
         dataText="Weather data"
-        source="OpenWeather"
-        url="https://openweathermap.org/"
+        source="WeatherAPI.com"
+        url="https://www.weatherapi.com/"
         style={{marginBottom: 24, marginTop: 56, textAlign: 'center'}}
       />
     </ScrollViewContainer>

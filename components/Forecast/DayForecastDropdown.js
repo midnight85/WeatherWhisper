@@ -9,14 +9,13 @@ import {
   LayoutAnimation,
   Platform,
   UIManager,
-  ScrollView,
 } from 'react-native';
 import {openweatherIcons} from '../../assets/openweather_icons';
 import {ExpandMore} from '../Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 import {fiveDaysForecast} from '../../data/FiveDaysForecast';
 import {getDayName} from '../../utils/Forecast/getDayName';
-import {adaptiveValue} from '../../utils/adaptiveValue';
+import DayForecastScrollView from './DayForecastScrollView';
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -86,17 +85,7 @@ function DayForecastDropdown({dt_txt, main, icon, temp, children}) {
           </View>
         </View>
       </Pressable>
-      {showBody && (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.bottomContainer}
-          contentContainerStyle={{
-            paddingHorizontal: 16,
-          }}>
-          {children}
-        </ScrollView>
-      )}
+      {showBody && <DayForecastScrollView>{children}</DayForecastScrollView>}
     </View>
   );
 }
@@ -125,11 +114,6 @@ const styles = StyleSheet.create({
     columnGap: 16,
     alignItems: 'center',
     flexDirection: 'row',
-  },
-  bottomContainer: {
-    marginTop: 4,
-    marginHorizontal: -16,
-    height: adaptiveValue({initialScreenWidth: 328, value: 112}),
   },
   day: {
     color: COLORS.neutralColors700,
