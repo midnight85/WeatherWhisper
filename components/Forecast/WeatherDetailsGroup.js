@@ -25,7 +25,7 @@ function WeatherDetailsGroup({isMetricUnits, data, style}) {
     precipitation: {
       icon: Precipitation,
       description: 'Precipitation',
-      value: `${data.precipitation}%`,
+      value: `${data.precipitation}`,
     },
     cloud: {
       icon: Cloud,

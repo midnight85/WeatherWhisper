@@ -16,18 +16,15 @@ import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 import {fiveDaysForecast} from '../../data/FiveDaysForecast';
 import {getDayName} from '../../utils/Forecast/getDayName';
 import DayForecastScrollView from './DayForecastScrollView';
+import {weatherIcons} from '../../assets/weather_icons';
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const {list} = fiveDaysForecast;
-
-// list.forEach(item => console.log(new Date(item.dt_txt)));
-
-function DayForecastDropdown({dt_txt, main, icon, temp, children}) {
+function DayForecastDropdown({date, condition, icon, temp, children}) {
   const [showBody, setShowBody] = React.useState(false);
-  const day = getDayName(dt_txt, 3);
+  const day = getDayName(date);
   const animationController = React.useRef(new Animated.Value(0)).current;
 
   function toggleItem() {
@@ -68,14 +65,14 @@ function DayForecastDropdown({dt_txt, main, icon, temp, children}) {
           <View style={[styles.flexRow, styles.middleColumn]}>
             <View style={styles.iconContainer}>
               <Image
-                source={openweatherIcons[icon]}
+                source={weatherIcons[icon]}
                 style={styles.weatherIcon}
               />
             </View>
-            <Text style={styles.main}>{main}</Text>
+            <Text style={styles.condition}>{condition}</Text>
           </View>
           <View style={[styles.flexRow, styles.rightColumn]}>
-            <Text style={styles.temp}>{temp}°</Text>
+            <Text style={styles.temp}>{Math.round(temp)}°</Text>
             <Animated.View style={{transform: [{rotateZ: iconTransform}]}}>
               <ExpandMore
                 size={24}
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
     color: COLORS.neutralColors700,
     ...FONT_WEIGHT.regular,
     ...TEXT.subT1,
-    flex: 0.4,
+    flex: 0.3,
   },
   iconContainer: {
     width: 40,
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  main: {
+  condition: {
     color: COLORS.neutralColors900,
     ...FONT_WEIGHT.medium,
     ...TEXT.subT2,

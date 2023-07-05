@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator
-      // initialRouteName={AQI_DETAILS}
+      // initialRouteName={FIVE_DAY_FORECAST}
       screenOptions={{
         headerStyle: {
           borderBottomWidth: 1,

@@ -57,7 +57,7 @@ function HomeScreen({navigation}) {
     air_quality,
   } = weatherApiData.current;
   const {maxtemp_c, maxtemp_f, mintemp_c, mintemp_f} = todayForecastData.day;
-  const {chance_of_rain} = getNearestHourData(
+  const {chance_of_rain, daily_will_it_rain} = getNearestHourData(
     localtime,
     todayForecastData.hour,
   );
@@ -82,7 +82,7 @@ function HomeScreen({navigation}) {
         data={{
           humidity: humidity,
           wind: isMetricUnits ? wind_kph : wind_mph,
-          precipitation: chance_of_rain,
+          precipitation: daily_will_it_rain ? 'Yes' : 'No',
         }}
         style={{marginBottom: 24}}
       />
