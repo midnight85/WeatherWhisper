@@ -5,7 +5,11 @@ import PollutantScale from './PollutantScale';
 function PollutantScaleGroup({components}) {
   const filteredObject = {};
   for (const key in components) {
-    if (components.hasOwnProperty(key) && key !== 'nh3' && key !== 'no') {
+    if (
+      components.hasOwnProperty(key) &&
+      key !== 'us-epa-index' &&
+      key !== 'gb-defra-index'
+    ) {
       filteredObject[key] = components[key];
     }
   }
@@ -15,7 +19,7 @@ function PollutantScaleGroup({components}) {
         <PollutantScale
           key={index}
           component={item}
-          value={components[item]}
+          value={components[item].toFixed(1)}
         />
       ))}
     </View>

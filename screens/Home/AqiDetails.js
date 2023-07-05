@@ -4,32 +4,25 @@ import {
   PollutantIndex,
   PollutantScaleGroup,
 } from '../../components/AirQuality';
-import {Title, ProvidedBy, ScrollViewContainer} from '../../components/UI';
-import {airPullution} from '../../data/AirPullution';
+import {Title, ScrollViewContainer} from '../../components/UI';
 import {useGetForecastQuery} from '../../store/weatherApiSlice';
-
-const components = airPullution.list[0].components;
+import {weatherApiData} from '../../data/WeatherApiData';
 
 function AqiDetails() {
   // const {data: data1} = useGetForecastQuery();
   // console.log(data1);
+  const {air_quality} = weatherApiData.current;
   return (
     <ScrollViewContainer>
       <PollutantIndex
-        index={1}
+        index={air_quality['us-epa-index']}
         style={{marginBottom: 24}}
       />
       <Title
         text="Air quality"
-        style={{marginBottom: 2}}
-      />
-      <ProvidedBy
-        dataText="Air pollutant data"
-        source="OpenWeather"
-        url="https://openweathermap.org/"
         style={{marginBottom: 16}}
       />
-      <PollutantScaleGroup components={components} />
+      <PollutantScaleGroup components={air_quality} />
       <Title
         text="Air quality scale"
         style={{marginBottom: 16, marginTop: 24}}
