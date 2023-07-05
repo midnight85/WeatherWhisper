@@ -6,10 +6,13 @@ import {
 } from '../../components/AirQuality';
 import {Title, ProvidedBy, ScrollViewContainer} from '../../components/UI';
 import {airPullution} from '../../data/AirPullution';
+import {useGetForecastQuery} from '../../store/weatherApiSlice';
 
 const components = airPullution.list[0].components;
 
 function AqiDetails() {
+  // const {data: data1} = useGetForecastQuery();
+  // console.log(data1);
   return (
     <ScrollViewContainer>
       <PollutantIndex

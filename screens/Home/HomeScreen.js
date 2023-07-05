@@ -16,6 +16,8 @@ import {
 } from '../../components/Forecast';
 import {ChevronRight} from '../../components/Icons';
 import {PollutantIndex} from '../../components/AirQuality';
+import {useGetForecastQuery} from '../../store/weatherApiSlice';
+import {weatherApiData} from '../../data/WeatherApiData';
 
 const dayForecastData = [
   {dt_txt: '2023-06-21 21:00:00', icon: '04n', temp: '23'},
@@ -26,6 +28,8 @@ const dayForecastData = [
 ];
 
 function HomeScreen({navigation}) {
+  // const {data: data1} = useGetForecastQuery();
+  // weatherApiData
   return (
     <ScrollViewContainer>
       <MainForecast style={{marginBottom: 8}} />
@@ -33,7 +37,6 @@ function HomeScreen({navigation}) {
         style={{marginBottom: 24}}
         data={{humidity: '6%', wind: '8 mph', precipitation: 'No'}}
       />
-
       <View
         style={{
           flexDirection: 'row',

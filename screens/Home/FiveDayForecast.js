@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {ScrollViewContainer} from '../../components/UI';
 import DayForecast from '../../components/Forecast/DayForecast';
 import DayForecastDropdown from '../../components/Forecast/DayForecastDropdown';
+import {useGetForecastQuery} from '../../store/weatherApiSlice';
 //to do: avarage temp and status func
 const data = [
   {
@@ -38,6 +39,9 @@ const data = [
 ];
 
 function FiveDayForecast() {
+  // const {data: data1} = useGetForecastQuery();
+  // console.log(data1);
+
   return (
     <ScrollViewContainer
       contentContainerStyle={{paddingHorizontal: 0, paddingTop: 8}}>

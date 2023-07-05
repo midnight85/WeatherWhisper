@@ -34,6 +34,8 @@ import {
 } from './components/Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from './constants/GlobalStyles';
 import {adaptiveValue} from './utils/adaptiveValue';
+import {Provider} from 'react-redux';
+import store from './store';
 
 const BottomTabs = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -147,24 +149,26 @@ function App() {
         backgroundColor="white"
         barStyle={'dark-content'}
       />
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Main"
-          screenOptions={{}}>
-          <Stack.Screen
-            name={ONBOARDING_SCREEN}
-            component={OnboardingScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name={MAIN}
-            component={Main}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Main"
+            screenOptions={{}}>
+            <Stack.Screen
+              name={ONBOARDING_SCREEN}
+              component={OnboardingScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name={MAIN}
+              component={Main}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }
