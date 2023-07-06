@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
 import {ScrollViewContainer} from '../../components/UI';
 import DayForecast from '../../components/Forecast/DayForecast';
 import DayForecastDropdown from '../../components/Forecast/DayForecastDropdown';
@@ -47,7 +46,6 @@ function FiveDayForecast() {
   // console.log(data1);
   const {isMetricUnits} = useSelector(store => store.globalState);
   const {forecastday} = weatherApiData.forecast;
-  console.log(forecastday);
   return (
     <ScrollViewContainer
       contentContainerStyle={{paddingHorizontal: 0, paddingTop: 8}}>

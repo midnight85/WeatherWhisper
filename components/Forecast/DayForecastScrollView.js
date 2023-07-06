@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 4,
     marginHorizontal: -16,
-    height: adaptiveValue({initialScreenWidth: 328, value: 112}),
+    marginBottom: 8,
+    height: adaptiveValue({initialScreenWidth: 360, value: 140}),
   },
 });
 

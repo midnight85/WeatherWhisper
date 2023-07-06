@@ -17,6 +17,8 @@ import {fiveDaysForecast} from '../../data/FiveDaysForecast';
 import {getDayName} from '../../utils/Forecast/getDayName';
 import DayForecastScrollView from './DayForecastScrollView';
 import {weatherIcons} from '../../assets/weather_icons';
+import {DayForecastGroup} from './index';
+import {adaptiveValue} from '../../utils/adaptiveValue';
 
 if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -58,7 +60,12 @@ function DayForecastDropdown({date, condition, icon, temp, children}) {
   return (
     <View style={styles.container}>
       <Pressable
-        style={({pressed}) => [pressed && styles.pressed]}
+        style={({pressed}) => [
+          {
+            paddingVertical: 8,
+          },
+          pressed && styles.pressed,
+        ]}
         onPress={toggleItem}>
         <View style={styles.topContainer}>
           <Text style={styles.day}>{day}</Text>
@@ -90,7 +97,7 @@ function DayForecastDropdown({date, condition, icon, temp, children}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 8,
+    // paddingVertical: 8,
     paddingHorizontal: 16,
     overflow: 'hidden',
   },
