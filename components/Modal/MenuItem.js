@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, StyleSheet, View, Pressable} from 'react-native';
-import {Check, Fahrenheit} from '../Icons';
+import {Text, StyleSheet, Pressable} from 'react-native';
+import {Check} from '../Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
-function MenuItem({checked, text, leftIcon: LeftIcon}) {
+function MenuItem({checked, text, leftIcon: LeftIcon, onPress}) {
   return (
     <Pressable
       style={({pressed}) => [
@@ -11,7 +11,7 @@ function MenuItem({checked, text, leftIcon: LeftIcon}) {
         styles.tempContainer,
         checked && {backgroundColor: COLORS.neutralColors_ct400_16},
       ]}
-      onPress={() => {}}>
+      onPress={onPress}>
       <LeftIcon
         size={24}
         color={COLORS.neutralColors600}

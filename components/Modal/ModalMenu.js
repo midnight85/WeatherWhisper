@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, Pressable, View, Modal} from 'react-native';
-import {Celsius, Check, Fahrenheit} from '../Icons';
+import {StyleSheet, Pressable, View, Modal} from 'react-native';
 import {
   COLORS,
   ELEVATION,
@@ -8,70 +7,22 @@ import {
   TEXT,
 } from '../../constants/GlobalStyles';
 import {adaptiveValue} from '../../utils/adaptiveValue';
-import MenuItem from './MenuItem';
 
-function ModalMenu() {
-  const [modalVisible, setModalVisible] = React.useState(true);
-
+function ModalMenu({modalVisible, handleModalClose, left, right, children}) {
   return (
     <Modal
       visible={modalVisible}
       transparent
-      animationType="slide"
-      onRequestClose={() => {
-        setModalVisible(!modalVisible);
-      }}
-      style={{backgroundColor: 'red'}}>
+      animationType="fade"
+      onRequestClose={handleModalClose}>
       <Pressable
-        style={styles.container}
-        onPress={event => {
-          // setModalVisible(false);
-        }}>
-        <View style={styles.modalContentContainer}>
-          <Pressable
-            style={({pressed}) => [
-              pressed && styles.pressed,
-              styles.tempContainer,
-            ]}
-            onPress={() => {}}>
-            <View style={styles.leftIcon}>
-              <Fahrenheit
-                size={24}
-                color={COLORS.neutralColors600}
-              />
-            </View>
-            <Text style={styles.text}>Fahrenheit</Text>
-            <View style={styles.rightIcon}>
-              <Check
-                size={24}
-                color={COLORS.brandColor500}
-              />
-            </View>
-          </Pressable>
-          <Pressable
-            style={({pressed}) => [
-              pressed && styles.pressed,
-              styles.tempContainer,
-            ]}
-            onPress={() => {}}>
-            <View style={styles.leftIcon}>
-              <Celsius
-                size={24}
-                color={COLORS.neutralColors600}
-              />
-            </View>
-            <Text style={styles.text}>Celsius</Text>
-            {/*<Check*/}
-            {/*  size={24}*/}
-            {/*  color={COLORS.brandColor500}*/}
-            {/*/>*/}
-          </Pressable>
-          <MenuItem
-            checked
-            text={'Test'}
-            leftIcon={Fahrenheit}
-          />
-        </View>
+        style={[
+          styles.container,
+          left && {alignItems: 'flex-start'},
+          right && {alignItems: 'flex-end'},
+        ]}
+        onPress={handleModalClose}>
+        <View style={styles.modalContentContainer}>{children}</View>
       </Pressable>
     </Modal>
   );
@@ -80,13 +31,9 @@ function ModalMenu() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
   modalContentContainer: {
-    // position: 'absolute',
-    // right: 16 + 30,
-    // top: 80,
     padding: 8,
     borderRadius: 12,
     width: adaptiveValue({value: 216}),
@@ -107,6 +54,7 @@ const styles = StyleSheet.create({
     columnGap: 12,
     justifyContent: 'space-between',
     backgroundColor: COLORS.neutralColors_ct400_16,
+    marginVertical: 8,
   },
   text: {
     flex: 1,

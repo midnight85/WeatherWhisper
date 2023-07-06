@@ -10,7 +10,9 @@ import {
   HOME,
 } from '../../constants/ScreenNames';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
-import {ArrowBack} from '../../components/Icons';
+import {ArrowBack, Celsius} from '../../components/Icons';
+import {IconButton} from '../../components/UI';
+import {adaptiveValue} from '../../utils/adaptiveValue';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +24,7 @@ function HomeStack() {
         headerStyle: {
           borderBottomWidth: 1,
           borderBottomColor: COLORS.neutralColors200,
+          height: adaptiveValue({value: 64}),
         },
         headerTitleStyle: {
           ...FONT_WEIGHT.medium,
@@ -46,7 +49,6 @@ function HomeStack() {
         name={HOME}
         component={HomeScreen}
         options={{
-          // headerLeft: () => null,
           headerTitle: () => null,
         }}
       />

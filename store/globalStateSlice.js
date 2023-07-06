@@ -9,8 +9,28 @@ const globalState = createSlice({
     // For temperature in Celsius use units=metric
     selectedUnits: 'metric',
     isMetricUnits: true,
+    unitsModalVisible: false,
+    locationModalVisible: false,
   },
-  reducers: {},
+  reducers: {
+    setIsMetricUnits: (state, {payload}) => {
+      state.isMetricUnits = payload;
+    },
+    setSelectedCountry: (state, {payload}) => {
+      state.selectedCountry = payload;
+    },
+    setUnitsModalVisible: (state, {payload}) => {
+      state.unitsModalVisible = payload;
+    },
+    setLocationModalVisible: (state, {payload}) => {
+      state.locationModalVisible = payload;
+    },
+  },
 });
-export const {} = globalState.actions;
+export const {
+  setIsMetricUnits,
+  setSelectedCountry,
+  setUnitsModalVisible,
+  setLocationModalVisible,
+} = globalState.actions;
 export default globalState.reducer;
