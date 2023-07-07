@@ -43,7 +43,9 @@ const Stack = createStackNavigator();
 function Main() {
   return (
     <BottomTabs.Navigator
+      initialRouteName={SEARCH_SCREEN}
       screenOptions={{
+        tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
           ...FONT_WEIGHT.semiBold,
           ...TEXT.caption,
@@ -83,7 +85,7 @@ function Main() {
         name={SEARCH_SCREEN}
         component={SearchScreen}
         options={{
-          // headerShown: false,
+          headerShown: false,
           tabBarLabel: 'Search',
           tabBarIcon: ({focused, color, size}) => {
             return (

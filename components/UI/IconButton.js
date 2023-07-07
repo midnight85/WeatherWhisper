@@ -11,6 +11,7 @@ function IconButton({
   filled,
   background,
   disabled,
+  style,
 }) {
   return (
     <Pressable
@@ -27,6 +28,7 @@ function IconButton({
             ? styles.disabled.borderColor
             : styles.disabled
           : null,
+        style && style,
       ]}>
       <IconComponent
         size={size ? size : 24}

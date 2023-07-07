@@ -1,4 +1,4 @@
-export function convert12HourTo24Hour(time12) {
+export function convert12HourTo24Hour(time12 = '') {
   // Separate the time components (hours, minutes, and AM/PM indicator)
   const timeComponents = time12.split(' ');
   const time = timeComponents[0];

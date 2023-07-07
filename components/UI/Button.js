@@ -11,6 +11,7 @@ function Button({
   leftIcon: LeftIcon,
   rightIcon: RightIcon,
   style,
+  textStyle,
 }) {
   const textColor = disabled
     ? styles.disabled.color
@@ -43,7 +44,10 @@ function Button({
           color={textColor}
         />
       )}
-      <Text style={[styles.text, {color: textColor}]}>{text}</Text>
+      <Text
+        style={[styles.text, {color: textColor}, textStyle && {...textStyle}]}>
+        {text}
+      </Text>
       {RightIcon && (
         <RightIcon
           size={18}

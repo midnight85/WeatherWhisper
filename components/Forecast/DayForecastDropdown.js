@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -25,9 +25,9 @@ if (Platform.OS === 'android') {
 }
 
 function DayForecastDropdown({date, condition, icon, temp, children}) {
-  const [showBody, setShowBody] = React.useState(false);
+  const [showBody, setShowBody] = useState(false);
   const day = getDayName(date);
-  const animationController = React.useRef(new Animated.Value(0)).current;
+  const animationController = useRef(new Animated.Value(0)).current;
 
   function toggleItem() {
     const config = {

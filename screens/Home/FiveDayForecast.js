@@ -6,6 +6,7 @@ import {useGetForecastQuery} from '../../store/weatherApiSlice';
 import {weatherApiData} from '../../data/WeatherApiData';
 import {useSelector} from 'react-redux';
 import DayForecastGroup from '../../components/Forecast/DayForecastGroup';
+import Loader from '../../components/Loader';
 
 //to do: avarage temp and status func
 const data = [
@@ -42,34 +43,44 @@ const data = [
 ];
 
 function FiveDayForecast() {
-  // const {data: data1} = useGetForecastQuery();
-  // console.log(data1);
-  const {isMetricUnits} = useSelector(store => store.globalState);
+  const {isMetricUnits, selectedCountry} = useSelector(
+    store => store.globalState,
+  );
+  const {
+    data: weatherApiData,
+    isLoading,
+    isError,
+    error,
+  } = useGetForecastQuery(selectedCountry.url);
   const {forecastday} = weatherApiData.forecast;
   return (
     <ScrollViewContainer
       contentContainerStyle={{paddingHorizontal: 0, paddingTop: 8}}>
-      {forecastday.slice(0, 5).map(day => (
-        <DayForecastDropdown
-          key={day.date}
-          date={day.date}
-          temp={isMetricUnits ? day.day.avgtemp_c : day.day.avgtemp_f}
-          condition={day.day.condition.text}
-          icon={day.day.condition.icon.split('64x64')[1]}>
-          <DayForecastGroup>
-            {day.hour.map(dayHour => (
-              <DayForecast
-                key={dayHour.time}
-                time
-                temp={isMetricUnits ? dayHour.temp_c : dayHour.temp_f}
-                date={dayHour.time}
-                icon={dayHour.condition.icon.split('64x64')[1]}
-                pop={dayHour.chance_of_rain}
-              />
-            ))}
-          </DayForecastGroup>
-        </DayForecastDropdown>
-      ))}
+      {isLoading ? (
+        <Loader style={{marginTop: 48}} />
+      ) : (
+        forecastday.map(day => (
+          <DayForecastDropdown
+            key={day.date}
+            date={day.date}
+            temp={isMetricUnits ? day.day.avgtemp_c : day.day.avgtemp_f}
+            condition={day.day.condition.text}
+            icon={day.day.condition.icon.split('64x64')[1]}>
+            <DayForecastGroup>
+              {day.hour.map(dayHour => (
+                <DayForecast
+                  key={dayHour.time}
+                  time
+                  temp={isMetricUnits ? dayHour.temp_c : dayHour.temp_f}
+                  date={dayHour.time}
+                  icon={dayHour.condition.icon.split('64x64')[1]}
+                  pop={dayHour.chance_of_rain}
+                />
+              ))}
+            </DayForecastGroup>
+          </DayForecastDropdown>
+        ))
+      )}
     </ScrollViewContainer>
   );
 }

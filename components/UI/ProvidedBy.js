@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Text, StyleSheet, Linking, Alert} from 'react-native';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 
 function ProvidedBy({dataText, source, url, style}) {
-  const handlePress = React.useCallback(async () => {
+  const handlePress = useCallback(async () => {
     await Linking.openURL(url);
   }, [url]);
   return (

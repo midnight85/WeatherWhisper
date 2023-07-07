@@ -19,7 +19,6 @@ const Stack = createStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator
-      // initialRouteName={FIVE_DAY_FORECAST}
       screenOptions={{
         headerStyle: {
           borderBottomWidth: 1,

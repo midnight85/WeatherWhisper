@@ -11,17 +11,30 @@ export const weatherApi = createApi({
   }),
   endpoints: builder => ({
     getForecast: builder.query({
-      query: () => ({
+      query: queryName => ({
         url: '/forecast.json',
         params: {
-          q: 'Lypova',
-          days: '7',
+          q: queryName,
+          days: '5',
           aqi: 'yes',
           alerts: 'no',
+        },
+      }),
+    }),
+    getSearch: builder.query({
+      query: queryName => ({
+        url: '/search.json',
+        params: {
+          q: queryName,
         },
       }),
     }),
   }),
 });
 
-export const {useGetForecastQuery} = weatherApi;
+export const {
+  useGetForecastQuery,
+  useLazyGetForecastQuery,
+  useGetSearchQuery,
+  useLazyGetSearchQuery,
+} = weatherApi;

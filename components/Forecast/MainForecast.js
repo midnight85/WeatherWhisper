@@ -102,9 +102,11 @@ const styles = StyleSheet.create({
     color: COLORS.neutralColors700,
   },
   iconContainer: {
-    width: 80,
-    height: 80,
-    marginHorizontal: -18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
+    // marginHorizontal: -10,
   },
 });
 
