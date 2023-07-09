@@ -12,10 +12,12 @@ function MenuItem({checked, text, leftIcon: LeftIcon, onPress}) {
         checked && {backgroundColor: COLORS.neutralColors_ct400_16},
       ]}
       onPress={onPress}>
-      <LeftIcon
-        size={24}
-        color={COLORS.neutralColors600}
-      />
+      {LeftIcon && (
+        <LeftIcon
+          size={24}
+          color={COLORS.neutralColors600}
+        />
+      )}
       <Text style={styles.text}>{text}</Text>
       {checked && (
         <Check
@@ -29,7 +31,8 @@ function MenuItem({checked, text, leftIcon: LeftIcon, onPress}) {
 
 const styles = StyleSheet.create({
   pressed: {
-    opacity: 0.6,
+    opacity: 0.7,
+    backgroundColor: COLORS.neutralColors_ct300_16,
   },
   tempContainer: {
     width: '100%',

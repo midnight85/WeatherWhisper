@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, StyleSheet, Pressable} from 'react-native';
 import {ChevronRight, Location} from './Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from '../constants/GlobalStyles';
+import LocationTitle from './LocationTitle';
 
 function HeaderLocation({location, onPress}) {
   return (
@@ -12,7 +13,16 @@ function HeaderLocation({location, onPress}) {
         size={24}
         color={COLORS.neutralColors600}
       />
-      <Text style={styles.text}>{location}</Text>
+      {location.url ? (
+        <LocationTitle
+          {...location}
+          style={{height: 40}}
+        />
+      ) : (
+        <Text style={styles.text}>No selected country</Text>
+      )}
+
+      {/*<Text style={styles.text}>{location.name}</Text>*/}
       <ChevronRight
         size={24}
         color={COLORS.neutralColors600}

@@ -23,7 +23,7 @@ function HomeStack() {
         headerStyle: {
           borderBottomWidth: 1,
           borderBottomColor: COLORS.neutralColors200,
-          height: adaptiveValue({value: 64}),
+          // height: adaptiveValue({value: 64}),
         },
         headerTitleStyle: {
           ...FONT_WEIGHT.medium,

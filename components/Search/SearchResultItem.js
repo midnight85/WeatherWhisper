@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Text, StyleSheet, View, Pressable} from 'react-native';
 import {IconButton} from '../UI';
 import {
@@ -8,8 +8,37 @@ import {
   ArrowInsert,
 } from '../Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
+import LocationTitle from '../LocationTitle';
+import {
+  addCountryToFavorite,
+  removeCountryFromFavorite,
+} from '../../store/favoritesSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
-function SearchResultItem({name, region, country, onPress}) {
+function SearchResultItem({searchResultItem, onPress}) {
+  const dispatch = useDispatch();
+  const favorites = useSelector(store => store.favorites);
+  const {name, region, country} = searchResultItem;
+  const [isInFavorites, setIsInFavorites] = useState(false);
+  console.log(
+    favorites.some(favoriteItem => favoriteItem.url === searchResultItem.url),
+  );
+  useEffect(() => {
+    setIsInFavorites(
+      favorites.some(favoriteItem => favoriteItem.url === searchResultItem.url),
+    );
+  }, [favorites, searchResultItem]);
+  // const isInFavorites = () => {
+  // return favorites.some(
+  //   favoriteItem => favoriteItem.url === searchResultItem.url,
+  // );
+  // };
+  const handleAddToFavorite = () => {
+    dispatch(addCountryToFavorite(searchResultItem));
+  };
+  const handleRemoveFromFavorite = () => {
+    dispatch(removeCountryFromFavorite(searchResultItem));
+  };
   return (
     <View style={styles.container}>
       <Pressable
@@ -22,17 +51,12 @@ function SearchResultItem({name, region, country, onPress}) {
           size={24}
           color={COLORS.neutralColors600}
         />
-        <View style={{flex: 1}}>
-          <Text style={styles.text}>{name}</Text>
-          <View>
-            <Text
-              style={{...FONT_WEIGHT.regular, ...TEXT.caption}}
-              numberOfLines={1}>
-              {country}
-              {region && `, ${region}`}
-            </Text>
-          </View>
-        </View>
+        <LocationTitle
+          name={name}
+          region={region}
+          country={country}
+          style={{flex: 1}}
+        />
         <ArrowInsert
           size={24}
           color={COLORS.neutralColors600}
@@ -40,9 +64,11 @@ function SearchResultItem({name, region, country, onPress}) {
       </Pressable>
       <View style={styles.iconBtnContainer}>
         <IconButton
-          icon={FavoriteOutlined}
+          icon={isInFavorites ? FavoriteFilled : FavoriteOutlined}
           color={COLORS.brandColor900}
-          onPress={() => {}}
+          onPress={
+            isInFavorites ? handleRemoveFromFavorite : handleAddToFavorite
+          }
         />
       </View>
     </View>
@@ -62,12 +88,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
-  text: {
-    flex: 1,
-    color: COLORS.neutralColors900,
-    ...FONT_WEIGHT.medium,
-    ...TEXT.subT1,
-  },
+
   iconBtnContainer: {
     marginVertical: 4,
     padding: 4,

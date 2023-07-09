@@ -35,7 +35,8 @@ import {
 import {COLORS, FONT_WEIGHT, TEXT} from './constants/GlobalStyles';
 import {adaptiveValue} from './utils/adaptiveValue';
 import {Provider} from 'react-redux';
-import store from './store';
+import {persistor, store} from './store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const BottomTabs = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -152,24 +153,28 @@ function App() {
         barStyle={'dark-content'}
       />
       <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Main"
-            screenOptions={{}}>
-            <Stack.Screen
-              name={ONBOARDING_SCREEN}
-              component={OnboardingScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name={MAIN}
-              component={Main}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <PersistGate
+          loading={null}
+          persistor={persistor}>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="Main"
+              screenOptions={{}}>
+              <Stack.Screen
+                name={ONBOARDING_SCREEN}
+                component={OnboardingScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name={MAIN}
+                component={Main}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PersistGate>
       </Provider>
     </>
   );

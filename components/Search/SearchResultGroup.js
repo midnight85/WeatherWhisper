@@ -18,7 +18,7 @@ function SearchResultGroup({searchResult}) {
         <SearchResultItem
           key={item.id}
           onPress={() => handleItemPress(item)}
-          {...item}
+          searchResultItem={item}
         />
       ))}
     </View>

@@ -41,6 +41,7 @@ function SearchInput({
         onChangeText={setSearchQuery}
         value={value}
         placeholder="Search for city..."
+        placeholderTextColor={COLORS.neutralColors900}
         onFocus={() => {
           setTextInputFocus(true);
         }}
