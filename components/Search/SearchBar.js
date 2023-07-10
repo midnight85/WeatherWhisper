@@ -8,7 +8,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CurrentLocationItem, Loader} from '../index';
 import Geolocation from '@react-native-community/geolocation';
 import {useLazyGetSearchQuery} from '../../store/weatherApiSlice';
-import {setSelectedCountry} from '../../store/globalStateSlice';
+import {
+  setIsNever_ask_againLocationPermission,
+  setSelectedCountry,
+} from '../../store/globalStateSlice';
+import {requestLocationPermission} from '../../utils/requestLocationPermission';
 
 function SearchBar({
   searchQuery,
@@ -17,7 +21,9 @@ function SearchBar({
   setTextInputInFocus,
 }) {
   const dispatch = useDispatch();
-  const {selectedCountry} = useSelector(store => store.globalState);
+  const {selectedCountry, isNever_ask_againLocationPermission} = useSelector(
+    store => store.globalState,
+  );
   const [trigger, {data: searchResult, isLoading, isError, error}] =
     useLazyGetSearchQuery();
   const setSelectedFromSearch = useCallback(() => {
@@ -28,17 +34,26 @@ function SearchBar({
       }
     }
   }, [dispatch, searchResult, selectedCountry]);
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(location => {
-      console.log(location.coords);
-      const lat = location.coords.latitude;
-      const lon = location.coords.longitude;
-      if (lat && lon) {
-        setSearchQuery('');
-        trigger(`${lat},${lon}`);
-        setSelectedFromSearch();
-      }
-    });
+  const handleIsNever_ask_againLocationPermission = value => {
+    dispatch(setIsNever_ask_againLocationPermission(value));
+  };
+  const getLocation = async () => {
+    const isLocationPermission = await requestLocationPermission(
+      isNever_ask_againLocationPermission,
+      handleIsNever_ask_againLocationPermission,
+    );
+    if (isLocationPermission) {
+      Geolocation.getCurrentPosition(location => {
+        console.log(location.coords);
+        const lat = location.coords.latitude;
+        const lon = location.coords.longitude;
+        if (lat && lon) {
+          setSearchQuery('');
+          trigger(`${lat},${lon}`);
+          setSelectedFromSearch();
+        }
+      });
+    }
   };
   useEffect(() => {
     setSelectedFromSearch();

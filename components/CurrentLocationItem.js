@@ -31,9 +31,7 @@ function CurrentLocationItem() {
         color={COLORS.neutralColors600}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.headlineText}>
-          {selectedCountry.country}, {selectedCountry.name}
-        </Text>
+        <Text style={styles.headlineText}>{selectedCountry.name}</Text>
         <Text style={styles.supportingText}>Current location</Text>
       </View>
       <Text style={styles.supportingText}>

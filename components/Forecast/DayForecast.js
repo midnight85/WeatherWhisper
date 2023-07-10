@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   pop: {
     marginTop: 10,
-    color: COLORS.brandColor400,
+    color: COLORS.brandColor700,
     ...FONT_WEIGHT.regular,
     ...TEXT.caption,
   },
