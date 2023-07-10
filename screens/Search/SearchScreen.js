@@ -11,7 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, TEXT} from '../../constants/GlobalStyles';
 import {SearchBar, SearchResultGroup} from '../../components/Search';
 import {useDebounce} from '../../hooks/useDebounce';
-import {Title} from '../../components/UI';
+import {Button, Title} from '../../components/UI';
 import {InfoBox} from '../../components';
 import {SearchNoRecents, SearchNoResults} from '../../components/Icons';
 import {
@@ -20,8 +20,12 @@ import {
 } from '../../store/weatherApiSlice';
 import {Loader} from '../../components';
 import {useIsFocused} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {cleanAllRecent} from '../../store/recentSearch';
 
 function SearchScreen() {
+  const dispatch = useDispatch();
+  const resentSearchItems = useSelector(store => store.recentSearch);
   const isFocused = useIsFocused();
   const [searchQuery, setSearchQuery] = useState('');
   const [textInputInFocus, setTextInputInFocus] = useState(false);
@@ -29,11 +33,16 @@ function SearchScreen() {
   const {
     data: weatherApiSearchData,
     isLoading,
+    isSuccess,
     isError,
     error,
   } = useGetSearchQuery(debouncedSearchQuery, {
-    skip: !debouncedSearchQuery,
+    skip: debouncedSearchQuery.length < 3,
   });
+  const isShowSearchResult = textInputInFocus || searchQuery;
+  const handleClearRecent = () => {
+    dispatch(cleanAllRecent());
+  };
   // const [trigger, result] = useLazyGetSearchQuery();
   // const {data: weatherApiSearchData, isLoading, isError, error} = result;
   // useEffect(() => {
@@ -57,34 +66,39 @@ function SearchScreen() {
         textInputInFocus={textInputInFocus}
         setTextInputInFocus={setTextInputInFocus}
       />
-      <Title
-        text={textInputInFocus || searchQuery ? 'Search results' : 'Recent'}
-        style={{marginBottom: 8, marginTop: 24, paddingHorizontal: 16}}
-      />
+      <View style={styles.titleContainer}>
+        <Title text={isShowSearchResult ? 'Search results' : 'Recent'} />
+        {!isShowSearchResult && resentSearchItems.length > 0 && (
+          <Button
+            text="Clear recent"
+            onPress={handleClearRecent}
+          />
+        )}
+      </View>
       <ScrollView style={styles.bottomContainer}>
-        {/*<Loader style={{marginTop: 48}} />*/}
         {isLoading ? (
           <Loader />
         ) : !searchQuery || !weatherApiSearchData?.length ? (
-          <InfoBox
-            style={{marginTop: 48, marginHorizontal: 48}}
-            icon={
-              textInputInFocus || searchQuery
-                ? SearchNoResults
-                : SearchNoRecents
-            }
-            title={textInputInFocus || searchQuery ? 'No results' : 'No recent'}
-            text={
-              !weatherApiSearchData?.length
-                ? "Oops! We couldn't find the city you're searching for. Please double-check the spelling and try again."
-                : 'Stay informed about the weather! Enter a city name to track the current weather conditions and forecast'
-            }
-          />
+          resentSearchItems.length && !textInputInFocus ? (
+            <SearchResultGroup
+              reverse
+              isShowSearchResult={isShowSearchResult}
+              searchResult={resentSearchItems}
+            />
+          ) : (
+            <InfoBox
+              style={{marginTop: 48, marginHorizontal: 48}}
+              icon={isShowSearchResult ? SearchNoResults : SearchNoRecents}
+              title={isShowSearchResult ? 'No results' : 'No recent'}
+              text={
+                !weatherApiSearchData?.length && searchQuery && isSuccess
+                  ? "Oops! We couldn't find the city you're searching for. Please double-check the spelling and try again."
+                  : 'Stay informed about the weather! Enter a city name to track the current weather conditions and forecast'
+              }
+            />
+          )
         ) : (
-          <SearchResultGroup
-            searchQuery={searchQuery}
-            searchResult={weatherApiSearchData}
-          />
+          <SearchResultGroup searchResult={weatherApiSearchData} />
         )}
       </ScrollView>
     </SafeAreaView>
@@ -99,6 +113,14 @@ const styles = StyleSheet.create({
   bottomContainer: {
     // paddingTop: 24,
     // paddingHorizontal: 16,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+    marginTop: 24,
+    paddingHorizontal: 16,
   },
 });
 

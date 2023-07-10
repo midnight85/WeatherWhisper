@@ -25,8 +25,8 @@ if (Platform.OS === 'android') {
 }
 
 function DayForecastDropdown({date, condition, icon, temp, children}) {
-  const [showBody, setShowBody] = useState(false);
   const day = getDayName(date);
+  const [showBody, setShowBody] = useState(day === 'Today' ? true : false);
   const animationController = useRef(new Animated.Value(0)).current;
 
   function toggleItem() {

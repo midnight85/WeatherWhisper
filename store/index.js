@@ -28,10 +28,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {weatherApi} from './weatherApiSlice';
 import globalStateReducer from './globalStateSlice';
 import favoritesReducer from './favoritesSlice';
+import recentSearchReducer from './recentSearch';
 
 const reducers = combineReducers({
   globalState: globalStateReducer,
   favorites: favoritesReducer,
+  recentSearch: recentSearchReducer,
   [weatherApi.reducerPath]: weatherApi.reducer,
 });
 const persistConfig = {

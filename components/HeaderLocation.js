@@ -16,7 +16,7 @@ function HeaderLocation({location, onPress}) {
       {location.url ? (
         <LocationTitle
           {...location}
-          style={{height: 40}}
+          style={{height: 40, width: '45%'}}
         />
       ) : (
         <Text style={styles.text}>No selected country</Text>

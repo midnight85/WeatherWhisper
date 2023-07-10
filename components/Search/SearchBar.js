@@ -13,6 +13,7 @@ import {
   setSelectedCountry,
 } from '../../store/globalStateSlice';
 import {requestLocationPermission} from '../../utils/requestLocationPermission';
+import {addItemToRecent} from '../../store/recentSearch';
 
 function SearchBar({
   searchQuery,
@@ -28,9 +29,9 @@ function SearchBar({
     useLazyGetSearchQuery();
   const setSelectedFromSearch = useCallback(() => {
     if (searchResult) {
-      console.log('searchResult', searchResult);
       if (selectedCountry?.url !== searchResult[0]?.url) {
         dispatch(setSelectedCountry(searchResult[0]));
+        // dispatch(addItemToRecent(searchResult[0]));
       }
     }
   }, [dispatch, searchResult, selectedCountry]);
@@ -80,7 +81,9 @@ function SearchBar({
             }}
           />
         ) : isLoading ? (
-          <Loader />
+          <View style={styles.currentLocationLoaderContainer}>
+            <Loader />
+          </View>
         ) : (
           <CurrentLocationItem />
         )
@@ -104,6 +107,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.neutralColors200,
     rowGap: 16,
+  },
+  currentLocationLoaderContainer: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.neutralColors500,
+    backgroundColor: COLORS.baseColors_white,
+    paddingVertical: 12,
+    paddingLeft: 16,
+    paddingRight: 24,
+    flexDirection: 'row',
+    columnGap: 16,
+    alignItems: 'center',
   },
 });
 
