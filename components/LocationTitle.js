@@ -5,7 +5,11 @@ import {COLORS, FONT_WEIGHT, TEXT} from '../constants/GlobalStyles';
 function LocationTitle({name, country, region, style}) {
   return (
     <View style={style && style}>
-      <Text style={styles.name}>{name}</Text>
+      <Text
+        style={styles.name}
+        numberOfLines={1}>
+        {name}
+      </Text>
       <View>
         <Text
           style={styles.country}

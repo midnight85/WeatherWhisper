@@ -41,9 +41,7 @@ import {
   setSelectedCountry,
 } from '../../store/globalStateSlice';
 import {COLORS} from '../../constants/GlobalStyles';
-import HeaderLocation from '../../components/HeaderLocation';
-import Loader from '../../components/Loader';
-import InfoBox from '../../components/InfoBox';
+import {InfoBox, Loader, HeaderLocation} from '../../components';
 
 function HomeScreen({navigation}) {
   const dispatch = useDispatch();
@@ -114,6 +112,9 @@ function HomeScreen({navigation}) {
     isError,
     error,
   } = useGetForecastQuery(selectedCountry.url, {skip: !selectedCountry.url});
+  //#############################################################################################
+  //#############################################################################################
+  //#############################################################################################
   const Modals = () => (
     <>
       <ModalMenu
@@ -143,27 +144,30 @@ function HomeScreen({navigation}) {
         modalVisible={locationModalVisible}
         handleModalClose={handleLocationModalClose}
         left>
-        <MenuItem
-          text={'No selected country'}
-          onPress={() => {
-            handleLocationModalClose();
-          }}
-        />
-        {/*{favorites?.map(item => {*/}
-        {/*  const selected = selectedCountry.url === item.url;*/}
-        {/*  return (*/}
-        {/*    <MenuItem*/}
-        {/*      key={item.url}*/}
-        {/*      checked={selected}*/}
-        {/*      text={item.name}*/}
-        {/*      leftIcon={Location}*/}
-        {/*      onPress={() => {*/}
-        {/*        dispatch(setSelectedCountry(item));*/}
-        {/*        handleLocationModalClose();*/}
-        {/*      }}*/}
-        {/*    />*/}
-        {/*  );*/}
-        {/*})}*/}
+        {favorites.length ? (
+          favorites?.map(item => {
+            const selected = selectedCountry.url === item.url;
+            return (
+              <MenuItem
+                key={item.url}
+                checked={selected}
+                text={item.name}
+                leftIcon={Location}
+                onPress={() => {
+                  dispatch(setSelectedCountry(item));
+                  handleLocationModalClose();
+                }}
+              />
+            );
+          })
+        ) : (
+          <MenuItem
+            text={'No favorites country'}
+            onPress={() => {
+              handleLocationModalClose();
+            }}
+          />
+        )}
       </ModalMenu>
     </>
   );
@@ -208,7 +212,7 @@ function HomeScreen({navigation}) {
           <InfoBox
             icon={SearchClear}
             title={'Error'}
-            text={error}
+            text={error.error}
           />
         </View>
       </>

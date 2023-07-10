@@ -20,19 +20,11 @@ function SearchResultItem({searchResultItem, onPress}) {
   const favorites = useSelector(store => store.favorites);
   const {name, region, country} = searchResultItem;
   const [isInFavorites, setIsInFavorites] = useState(false);
-  console.log(
-    favorites.some(favoriteItem => favoriteItem.url === searchResultItem.url),
-  );
   useEffect(() => {
     setIsInFavorites(
       favorites.some(favoriteItem => favoriteItem.url === searchResultItem.url),
     );
   }, [favorites, searchResultItem]);
-  // const isInFavorites = () => {
-  // return favorites.some(
-  //   favoriteItem => favoriteItem.url === searchResultItem.url,
-  // );
-  // };
   const handleAddToFavorite = () => {
     dispatch(addCountryToFavorite(searchResultItem));
   };

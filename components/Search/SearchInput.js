@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text, StyleSheet, TextInput, View} from 'react-native';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 import {ArrowBack, Search, SearchClear} from '../Icons';
@@ -7,24 +7,26 @@ import {IconButton} from '../UI';
 function SearchInput({
   value,
   setSearchQuery,
-  textInputFocus,
-  setTextInputFocus,
+  textInputInFocus,
+  setTextInputInFocus,
 }) {
   const textInputRef = useRef(null);
   const handleClearValue = () => {
     setSearchQuery('');
   };
-  const handleTextInputFocus = () => {
-    if (textInputRef.current) {
+  useEffect(() => {
+    if (textInputRef.current && !textInputInFocus) {
       textInputRef.current.blur();
     }
-    setTextInputFocus(false);
+  }, [textInputInFocus]);
+  const handleTextInputInFocus = () => {
+    setTextInputInFocus(false);
   };
   return (
     <View style={styles.container}>
-      {textInputFocus ? (
+      {textInputInFocus ? (
         <IconButton
-          onPress={handleTextInputFocus}
+          onPress={handleTextInputInFocus}
           icon={ArrowBack}
           color={COLORS.neutralColors600}
           style={{margin: -8}}
@@ -43,10 +45,10 @@ function SearchInput({
         placeholder="Search for city..."
         placeholderTextColor={COLORS.neutralColors900}
         onFocus={() => {
-          setTextInputFocus(true);
+          setTextInputInFocus(true);
         }}
         onBlur={() => {
-          setTextInputFocus(false);
+          setTextInputInFocus(false);
         }}
       />
       {value && (

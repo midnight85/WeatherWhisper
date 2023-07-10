@@ -12,17 +12,19 @@ import {COLORS, TEXT} from '../../constants/GlobalStyles';
 import {SearchBar, SearchResultGroup} from '../../components/Search';
 import {useDebounce} from '../../hooks/useDebounce';
 import {Title} from '../../components/UI';
-import InfoBox from '../../components/InfoBox';
+import {InfoBox} from '../../components';
 import {SearchNoRecents, SearchNoResults} from '../../components/Icons';
 import {
   useGetSearchQuery,
   useLazyGetSearchQuery,
 } from '../../store/weatherApiSlice';
-import Loader from '../../components/Loader';
+import {Loader} from '../../components';
+import {useIsFocused} from '@react-navigation/native';
 
 function SearchScreen() {
+  const isFocused = useIsFocused();
   const [searchQuery, setSearchQuery] = useState('');
-  const [textInputFocus, setTextInputFocus] = useState(false);
+  const [textInputInFocus, setTextInputInFocus] = useState(false);
   const debouncedSearchQuery = useDebounce(searchQuery);
   const {
     data: weatherApiSearchData,
@@ -42,16 +44,21 @@ function SearchScreen() {
   //     trigger(debouncedSearchQuery);
   //   }
   // }, [debouncedSearchQuery]);
+  useEffect(() => {
+    if (!isFocused) {
+      setSearchQuery('');
+    }
+  }, [isFocused]);
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        textInputFocus={textInputFocus}
-        setTextInputFocus={setTextInputFocus}
+        textInputInFocus={textInputInFocus}
+        setTextInputInFocus={setTextInputInFocus}
       />
       <Title
-        text={textInputFocus || searchQuery ? 'Search results' : 'Recent'}
+        text={textInputInFocus || searchQuery ? 'Search results' : 'Recent'}
         style={{marginBottom: 8, marginTop: 24, paddingHorizontal: 16}}
       />
       <ScrollView style={styles.bottomContainer}>
@@ -62,9 +69,11 @@ function SearchScreen() {
           <InfoBox
             style={{marginTop: 48, marginHorizontal: 48}}
             icon={
-              textInputFocus || searchQuery ? SearchNoResults : SearchNoRecents
+              textInputInFocus || searchQuery
+                ? SearchNoResults
+                : SearchNoRecents
             }
-            title={textInputFocus || searchQuery ? 'No results' : 'No recent'}
+            title={textInputInFocus || searchQuery ? 'No results' : 'No recent'}
             text={
               !weatherApiSearchData?.length
                 ? "Oops! We couldn't find the city you're searching for. Please double-check the spelling and try again."

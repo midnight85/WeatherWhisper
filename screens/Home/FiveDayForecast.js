@@ -6,7 +6,7 @@ import {useGetForecastQuery} from '../../store/weatherApiSlice';
 import {weatherApiData} from '../../data/WeatherApiData';
 import {useSelector} from 'react-redux';
 import DayForecastGroup from '../../components/Forecast/DayForecastGroup';
-import Loader from '../../components/Loader';
+import {Loader} from '../../components';
 
 //to do: avarage temp and status func
 const data = [

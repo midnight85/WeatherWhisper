@@ -1,7 +1,11 @@
 import React from 'react';
 import {Text, StyleSheet, View, Button} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {setSelectedCountry} from '../../store/globalStateSlice';
 
 function AccountScreen({navigation}) {
+  const dispatch = useDispatch();
+
   return (
     <View>
       <Text>AccountScreen</Text>
@@ -29,12 +33,12 @@ function AccountScreen({navigation}) {
           navigation.navigate('AccountAbout');
         }}
       />
-      {/*<Button*/}
-      {/*  title="AccountAbout"*/}
-      {/*  onPress={() => {*/}
-      {/*    navigation.navigate('AccountAbout');*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <Button
+        title="Clean selected country"
+        onPress={() => {
+          dispatch(setSelectedCountry({}));
+        }}
+      />
     </View>
   );
 }
