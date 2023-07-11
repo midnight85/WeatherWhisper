@@ -1,13 +1,13 @@
 import React, {useCallback} from 'react';
 import {Text, StyleSheet} from 'react-native';
-import {MenuItem, ModalMenu} from './Modal';
-import {Celsius, Location} from './Icons';
+import {MenuItem, ModalMenu} from './index';
+import {Celsius, Location} from '../Icons';
 import {
   setIsMetricUnits,
   setLocationModalVisible,
   setSelectedCountry,
   setUnitsModalVisible,
-} from '../store/globalStateSlice';
+} from '../../store/globalStateSlice';
 import {useDispatch, useSelector} from 'react-redux';
 
 function HomeScreenModals() {

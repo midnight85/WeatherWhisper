@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import {SearchResultItem} from './index';
 import {useDispatch} from 'react-redux';
 import {setSelectedCountry} from '../../store/globalStateSlice';
@@ -17,7 +17,7 @@ function SearchResultGroup({reverse, searchResult}) {
   };
   const items = reverse ? [...searchResult].reverse() : searchResult;
   return (
-    <View style={styles.container}>
+    <ScrollView>
       {items.map(item => (
         <SearchResultItem
           key={item.id}
@@ -25,12 +25,10 @@ function SearchResultGroup({reverse, searchResult}) {
           searchResultItem={item}
         />
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {},
-});
+const styles = StyleSheet.create({});
 
 export default SearchResultGroup;

@@ -33,7 +33,7 @@ import {getTodayFromForecast} from '../../utils/getTodayFromForecast';
 import {getNearestHourData} from '../../utils/getNearestHourData';
 import {convert12HourTo24Hour} from '../../utils/convert12HourTo24Hour';
 import DayForecastScrollView from '../../components/Forecast/DayForecastScrollView';
-import {ModalMenu, MenuItem} from '../../components/Modal';
+import {HomeScreenModals} from '../../components/Modal';
 import {
   setUnitsModalVisible,
   setIsMetricUnits,
@@ -41,12 +41,7 @@ import {
   setSelectedCountry,
 } from '../../store/globalStateSlice';
 import {COLORS} from '../../constants/GlobalStyles';
-import {
-  InfoBox,
-  Loader,
-  HeaderLocation,
-  HomeScreenModals,
-} from '../../components';
+import {InfoBox, Loader, HeaderLocation} from '../../components';
 
 function HomeScreen({navigation}) {
   const dispatch = useDispatch();

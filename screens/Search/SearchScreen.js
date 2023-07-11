@@ -30,6 +30,7 @@ function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [textInputInFocus, setTextInputInFocus] = useState(false);
   const debouncedSearchQuery = useDebounce(searchQuery);
+
   const {
     data: weatherApiSearchData,
     isLoading,
@@ -43,16 +44,7 @@ function SearchScreen() {
   const handleClearRecent = () => {
     dispatch(cleanAllRecent());
   };
-  // const [trigger, result] = useLazyGetSearchQuery();
-  // const {data: weatherApiSearchData, isLoading, isError, error} = result;
-  // useEffect(() => {
-  //   if (!debouncedSearchQuery) {
-  //     result.unsubscribe();
-  //   }
-  //   if (debouncedSearchQuery) {
-  //     trigger(debouncedSearchQuery);
-  //   }
-  // }, [debouncedSearchQuery]);
+
   useEffect(() => {
     if (!isFocused) {
       setSearchQuery('');
@@ -82,7 +74,6 @@ function SearchScreen() {
           resentSearchItems.length && !textInputInFocus ? (
             <SearchResultGroup
               reverse
-              isShowSearchResult={isShowSearchResult}
               searchResult={resentSearchItems}
             />
           ) : (

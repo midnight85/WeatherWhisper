@@ -13,6 +13,9 @@ const favorites = createSlice({
     removeCountryFromFavorite: (state, {payload}) => {
       return [...state.filter(item => item.url !== payload.url)];
     },
+    removeLastAddedCountry: state => {
+      state.pop();
+    },
     cleanAllFavorites: state => {
       return [];
     },
@@ -21,6 +24,7 @@ const favorites = createSlice({
 export const {
   addCountryToFavorite,
   removeCountryFromFavorite,
+  removeLastAddedCountry,
   cleanAllFavorites,
 } = favorites.actions;
 export default favorites.reducer;

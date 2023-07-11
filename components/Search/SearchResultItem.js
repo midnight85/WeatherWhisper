@@ -12,8 +12,10 @@ import LocationTitle from '../LocationTitle';
 import {
   addCountryToFavorite,
   removeCountryFromFavorite,
+  removeLastAddedCountry,
 } from '../../store/favoritesSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import Snackbar from 'react-native-snackbar';
 
 function SearchResultItem({searchResultItem, onPress}) {
   const dispatch = useDispatch();
@@ -27,6 +29,21 @@ function SearchResultItem({searchResultItem, onPress}) {
   }, [favorites, searchResultItem]);
   const handleAddToFavorite = () => {
     dispatch(addCountryToFavorite(searchResultItem));
+    Snackbar.show({
+      marginBottom: 80,
+      backgroundColor: COLORS.neutralColors900,
+      text: 'City added to your Favorites',
+      textColor: COLORS.neutralColors100,
+      duration: 2000,
+      numberOfLines: 1,
+      action: {
+        text: 'Undo',
+        textColor: COLORS.brandColor500,
+        onPress: () => {
+          dispatch(removeLastAddedCountry());
+        },
+      },
+    });
   };
   const handleRemoveFromFavorite = () => {
     dispatch(removeCountryFromFavorite(searchResultItem));
@@ -80,7 +97,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
-
   iconBtnContainer: {
     marginVertical: 4,
     padding: 4,
