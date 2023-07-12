@@ -13,7 +13,11 @@ import {SearchBar, SearchResultGroup} from '../../components/Search';
 import {useDebounce} from '../../hooks/useDebounce';
 import {Button, Title} from '../../components/UI';
 import {InfoBox} from '../../components';
-import {SearchNoRecents, SearchNoResults} from '../../components/Icons';
+import {
+  SearchClear,
+  SearchNoRecents,
+  SearchNoResults,
+} from '../../components/Icons';
 import {
   useGetSearchQuery,
   useLazyGetSearchQuery,
@@ -50,6 +54,30 @@ function SearchScreen() {
       setSearchQuery('');
     }
   }, [isFocused]);
+  if (isError) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          textInputInFocus={textInputInFocus}
+          setTextInputInFocus={setTextInputInFocus}
+        />
+        <View
+          style={{
+            backgroundColor: 'white',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 48,
+          }}>
+          <InfoBox
+            icon={SearchClear}
+            text={error.error.split('TypeError:')[1]}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar
@@ -67,7 +95,7 @@ function SearchScreen() {
           />
         )}
       </View>
-      <ScrollView style={styles.bottomContainer}>
+      <ScrollView>
         {isLoading ? (
           <Loader />
         ) : !searchQuery || !weatherApiSearchData?.length ? (
@@ -101,10 +129,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.baseColors_white,
   },
-  bottomContainer: {
-    // paddingTop: 24,
-    // paddingHorizontal: 16,
-  },
+
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',

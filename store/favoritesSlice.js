@@ -4,16 +4,21 @@ const favorites = createSlice({
   name: 'favorites',
   initialState: [],
   reducers: {
-    addCountryToFavorite: (state, {payload}) => {
+    addCityToFavorite: (state, {payload}) => {
       if (state.some(favoriteItem => favoriteItem.url === payload.url)) {
         return state;
       }
       state.push(payload);
     },
-    removeCountryFromFavorite: (state, {payload}) => {
+    removeCityFromFavorite: (state, {payload}) => {
       return [...state.filter(item => item.url !== payload.url)];
     },
-    removeLastAddedCountry: state => {
+    removeSelectedFromFavorite: (state, {payload}) => {
+      return state.filter(item => {
+        return !payload.some(selectedItem => selectedItem.id === item.id);
+      });
+    },
+    removeLastAddedCity: state => {
       state.pop();
     },
     cleanAllFavorites: state => {
@@ -22,9 +27,10 @@ const favorites = createSlice({
   },
 });
 export const {
-  addCountryToFavorite,
-  removeCountryFromFavorite,
-  removeLastAddedCountry,
+  addCityToFavorite,
+  removeCityFromFavorite,
+  removeSelectedFromFavorite,
+  removeLastAddedCity,
   cleanAllFavorites,
 } = favorites.actions;
 export default favorites.reducer;

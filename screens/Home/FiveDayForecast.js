@@ -43,15 +43,13 @@ const data = [
 ];
 
 function FiveDayForecast() {
-  const {isMetricUnits, selectedCountry} = useSelector(
-    store => store.globalState,
-  );
+  const {isMetricUnits, trackedCity} = useSelector(store => store.globalState);
   const {
     data: weatherApiData,
     isLoading,
     isError,
     error,
-  } = useGetForecastQuery(selectedCountry.url);
+  } = useGetForecastQuery(trackedCity.url);
   const {forecastday} = weatherApiData.forecast;
   return (
     <ScrollViewContainer

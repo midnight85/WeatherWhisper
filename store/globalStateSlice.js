@@ -4,13 +4,11 @@ const globalState = createSlice({
   name: 'globalState',
   initialState: {
     // Country for main forecast
-    selectedCountry: {},
+    trackedCity: {},
     // For temperature in Fahrenheit use units=imperial
     // For temperature in Celsius use units=metric
-    selectedUnits: 'metric',
     isMetricUnits: true,
     isNever_ask_againLocationPermission: false,
-    // move to state
     unitsModalVisible: false,
     locationModalVisible: false,
   },
@@ -21,8 +19,8 @@ const globalState = createSlice({
     setIsMetricUnits: (state, {payload}) => {
       state.isMetricUnits = payload;
     },
-    setSelectedCountry: (state, {payload}) => {
-      state.selectedCountry = payload;
+    setTrackedCity: (state, {payload}) => {
+      state.trackedCity = payload;
     },
     setUnitsModalVisible: (state, {payload}) => {
       state.unitsModalVisible = payload;
@@ -34,7 +32,7 @@ const globalState = createSlice({
 });
 export const {
   setIsMetricUnits,
-  setSelectedCountry,
+  setTrackedCity,
   setIsNever_ask_againLocationPermission,
   setUnitsModalVisible,
   setLocationModalVisible,

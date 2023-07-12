@@ -7,16 +7,14 @@ import {COLORS, FONT_WEIGHT, TEXT} from '../constants/GlobalStyles';
 import {Loader} from './index';
 
 function CurrentLocationItem() {
-  const {selectedCountry, isMetricUnits} = useSelector(
-    store => store.globalState,
-  );
+  const {trackedCity, isMetricUnits} = useSelector(store => store.globalState);
   const {
     data: weatherApiData,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetForecastQuery(selectedCountry.url, {skip: !selectedCountry.url});
+  } = useGetForecastQuery(trackedCity.url, {skip: !trackedCity.url});
   if (isLoading) {
     return (
       <View style={[styles.container, {paddingVertical: 12}]}>
@@ -31,7 +29,7 @@ function CurrentLocationItem() {
         color={COLORS.neutralColors600}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.headlineText}>{selectedCountry.name}</Text>
+        <Text style={styles.headlineText}>{trackedCity.name}</Text>
         <Text style={styles.supportingText}>Current location</Text>
       </View>
       <Text style={styles.supportingText}>

@@ -21,6 +21,15 @@ export const weatherApi = createApi({
         },
       }),
     }),
+    getCurrent: builder.query({
+      query: queryName => ({
+        url: '/current.json',
+        params: {
+          q: queryName,
+          aqi: 'no',
+        },
+      }),
+    }),
     getSearch: builder.query({
       query: queryName => ({
         url: '/search.json',
@@ -35,6 +44,8 @@ export const weatherApi = createApi({
 export const {
   useGetForecastQuery,
   useLazyGetForecastQuery,
+  useGetCurrentQuery,
+  useLazyGetCurrentQuery,
   useGetSearchQuery,
   useLazyGetSearchQuery,
 } = weatherApi;

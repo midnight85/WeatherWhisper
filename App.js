@@ -33,7 +33,6 @@ import {
   UserFilled,
 } from './components/Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from './constants/GlobalStyles';
-import {adaptiveValue} from './utils/adaptiveValue';
 import {Provider} from 'react-redux';
 import {persistor, store} from './store';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -44,7 +43,7 @@ const Stack = createStackNavigator();
 function Main() {
   return (
     <BottomTabs.Navigator
-      initialRouteName={SEARCH_SCREEN}
+      initialRouteName={FAVORITES_SCREEN}
       screenOptions={{
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
@@ -102,7 +101,15 @@ function Main() {
         name={FAVORITES_SCREEN}
         component={FavoritesScreen}
         options={{
-          // headerShown: false,
+          headerTitleStyle: {
+            color: COLORS.neutralColors900,
+            ...FONT_WEIGHT.medium,
+            ...TEXT.subT1,
+          },
+          headerStyle: {
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.neutralColors200,
+          },
           tabBarLabel: 'Favorites',
           tabBarIcon: ({focused, color, size}) => {
             return focused ? (

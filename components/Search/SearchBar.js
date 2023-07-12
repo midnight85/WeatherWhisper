@@ -10,7 +10,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {useLazyGetSearchQuery} from '../../store/weatherApiSlice';
 import {
   setIsNever_ask_againLocationPermission,
-  setSelectedCountry,
+  setTrackedCity,
 } from '../../store/globalStateSlice';
 import {requestLocationPermission} from '../../utils/requestLocationPermission';
 import {addItemToRecent} from '../../store/recentSearch';
@@ -22,19 +22,19 @@ function SearchBar({
   setTextInputInFocus,
 }) {
   const dispatch = useDispatch();
-  const {selectedCountry, isNever_ask_againLocationPermission} = useSelector(
+  const {trackedCity, isNever_ask_againLocationPermission} = useSelector(
     store => store.globalState,
   );
   const [trigger, {data: searchResult, isLoading, isError, error}] =
     useLazyGetSearchQuery();
   const setSelectedFromSearch = useCallback(() => {
     if (searchResult) {
-      if (selectedCountry?.url !== searchResult[0]?.url) {
-        dispatch(setSelectedCountry(searchResult[0]));
+      if (trackedCity?.url !== searchResult[0]?.url) {
+        dispatch(setTrackedCity(searchResult[0]));
         // dispatch(addItemToRecent(searchResult[0]));
       }
     }
-  }, [dispatch, searchResult, selectedCountry]);
+  }, [dispatch, searchResult, trackedCity]);
   const handleIsNever_ask_againLocationPermission = value => {
     dispatch(setIsNever_ask_againLocationPermission(value));
   };
@@ -67,7 +67,7 @@ function SearchBar({
         textInputInFocus={textInputInFocus}
         setTextInputInFocus={setTextInputInFocus}
       />
-      {selectedCountry.url ? (
+      {trackedCity?.url ? (
         textInputInFocus ? (
           <Button
             outlined

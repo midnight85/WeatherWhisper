@@ -38,16 +38,14 @@ import {
   setUnitsModalVisible,
   setIsMetricUnits,
   setLocationModalVisible,
-  setSelectedCountry,
+  setTrackedCity,
 } from '../../store/globalStateSlice';
 import {COLORS} from '../../constants/GlobalStyles';
 import {InfoBox, Loader, HeaderLocation} from '../../components';
 
 function HomeScreen({navigation}) {
   const dispatch = useDispatch();
-  const {selectedCountry, isMetricUnits} = useSelector(
-    store => store.globalState,
-  );
+  const {trackedCity, isMetricUnits} = useSelector(store => store.globalState);
 
   const handleUnitsModalOpen = useCallback(() => {
     dispatch(setUnitsModalVisible(true));
@@ -62,7 +60,7 @@ function HomeScreen({navigation}) {
       navigation.setOptions({
         headerLeft: () => (
           <HeaderLocation
-            location={selectedCountry}
+            location={trackedCity}
             onPress={handleLocationModalOpen}
           />
         ),
@@ -79,20 +77,20 @@ function HomeScreen({navigation}) {
     [
       navigation,
       isMetricUnits,
-      selectedCountry,
+      trackedCity,
       handleUnitsModalOpen,
       handleLocationModalOpen,
     ],
   );
+
   const {
     data: weatherApiData,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetForecastQuery(selectedCountry.url, {skip: !selectedCountry.url});
-
-  if (!selectedCountry.url) {
+  } = useGetForecastQuery(trackedCity.url, {skip: !trackedCity.url});
+  if (!trackedCity?.url) {
     return (
       <>
         <HomeScreenModals />
@@ -106,7 +104,7 @@ function HomeScreen({navigation}) {
           }}>
           <InfoBox
             icon={FavoritesNoFavorites}
-            title={'No selected country!'}
+            title={'No selected city!'}
             text={
               'Please select a city to display the weather forecast by using the search or your current location.'
             }
@@ -132,8 +130,7 @@ function HomeScreen({navigation}) {
           }}>
           <InfoBox
             icon={SearchClear}
-            title={'Error'}
-            text={error.error}
+            title={error.error.split('TypeError:')[1]}
           />
         </View>
       </>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet, View, Button} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {setSelectedCountry} from '../../store/globalStateSlice';
+import {setTrackedCity} from '../../store/globalStateSlice';
 
 function AccountScreen({navigation}) {
   const dispatch = useDispatch();
@@ -34,9 +34,9 @@ function AccountScreen({navigation}) {
         }}
       />
       <Button
-        title="Clean selected country"
+        title="Clean selected city"
         onPress={() => {
-          dispatch(setSelectedCountry({}));
+          dispatch(setTrackedCity({}));
         }}
       />
     </View>

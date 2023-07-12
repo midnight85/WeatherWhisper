@@ -5,19 +5,15 @@ import {Celsius, Location} from '../Icons';
 import {
   setIsMetricUnits,
   setLocationModalVisible,
-  setSelectedCountry,
+  setTrackedCity,
   setUnitsModalVisible,
 } from '../../store/globalStateSlice';
 import {useDispatch, useSelector} from 'react-redux';
 
 function HomeScreenModals() {
   const dispatch = useDispatch();
-  const {
-    selectedCountry,
-    isMetricUnits,
-    unitsModalVisible,
-    locationModalVisible,
-  } = useSelector(store => store.globalState);
+  const {trackedCity, isMetricUnits, unitsModalVisible, locationModalVisible} =
+    useSelector(store => store.globalState);
   const favorites = useSelector(store => store.favorites);
   const handleLocationModalClose = useCallback(() => {
     dispatch(setLocationModalVisible(false));
@@ -62,7 +58,7 @@ function HomeScreenModals() {
         left>
         {favorites.length ? (
           favorites?.map(item => {
-            const selected = selectedCountry.url === item.url;
+            const selected = trackedCity.url === item.url;
             return (
               <MenuItem
                 key={item.url}
@@ -70,7 +66,7 @@ function HomeScreenModals() {
                 text={item.name}
                 leftIcon={Location}
                 onPress={() => {
-                  dispatch(setSelectedCountry(item));
+                  dispatch(setTrackedCity(item));
                   handleLocationModalClose();
                 }}
               />

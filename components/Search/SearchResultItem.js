@@ -10,9 +10,9 @@ import {
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 import LocationTitle from '../LocationTitle';
 import {
-  addCountryToFavorite,
-  removeCountryFromFavorite,
-  removeLastAddedCountry,
+  addCityToFavorite,
+  removeCityFromFavorite,
+  removeLastAddedCity,
 } from '../../store/favoritesSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import Snackbar from 'react-native-snackbar';
@@ -28,7 +28,7 @@ function SearchResultItem({searchResultItem, onPress}) {
     );
   }, [favorites, searchResultItem]);
   const handleAddToFavorite = () => {
-    dispatch(addCountryToFavorite(searchResultItem));
+    dispatch(addCityToFavorite(searchResultItem));
     Snackbar.show({
       marginBottom: 80,
       backgroundColor: COLORS.neutralColors900,
@@ -40,13 +40,13 @@ function SearchResultItem({searchResultItem, onPress}) {
         text: 'Undo',
         textColor: COLORS.brandColor500,
         onPress: () => {
-          dispatch(removeLastAddedCountry());
+          dispatch(removeLastAddedCity());
         },
       },
     });
   };
   const handleRemoveFromFavorite = () => {
-    dispatch(removeCountryFromFavorite(searchResultItem));
+    dispatch(removeCityFromFavorite(searchResultItem));
   };
   return (
     <View style={styles.container}>

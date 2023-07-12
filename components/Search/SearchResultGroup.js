@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import {SearchResultItem} from './index';
 import {useDispatch} from 'react-redux';
-import {setSelectedCountry} from '../../store/globalStateSlice';
+import {setTrackedCity} from '../../store/globalStateSlice';
 import {useLazyGetForecastQuery} from '../../store/weatherApiSlice';
 import {addItemToRecent} from '../../store/recentSearch';
 
@@ -10,7 +10,7 @@ function SearchResultGroup({reverse, searchResult}) {
   const dispatch = useDispatch();
   const [trigger] = useLazyGetForecastQuery();
   const handleItemPress = item => {
-    dispatch(setSelectedCountry(item));
+    dispatch(setTrackedCity(item));
     // if item press from recent list, don't add to recent
     !reverse && dispatch(addItemToRecent(item));
     trigger(item.url);
