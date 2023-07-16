@@ -11,6 +11,12 @@ import {CheckBoxChecked, CheckBoxUnchecked} from '../Icons';
 import {useGetForecastQuery} from '../../store/weatherApiSlice';
 import {InfoBox, Loader} from '../index';
 import {weatherIcons} from '../../assets/weather_icons';
+import Animated, {
+  FadeIn,
+  FadeInLeft,
+  FadeOut,
+  FadeOutLeft,
+} from 'react-native-reanimated';
 
 function FavoriteItem({
   name,
@@ -25,6 +31,7 @@ function FavoriteItem({
   const {
     data: currentWeatherApiData,
     isLoading,
+    isFetching,
     isSuccess,
     isError,
     error,
@@ -40,13 +47,16 @@ function FavoriteItem({
   useEffect(() => {
     setIsTrackedCity(checkIsTrackedCity());
   }, [trackedCity]);
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <View
         style={[
           styles.notSelectionModeContainer,
           styles.container,
-          {height: 176},
+          {
+            height: 176,
+            ...ELEVATION.small,
+          },
         ]}>
         <Loader />
       </View>
@@ -56,8 +66,8 @@ function FavoriteItem({
     return (
       <View
         style={[
-          styles.notSelectionModeContainer,
           styles.container,
+          styles.notSelectionModeContainer,
           {height: 176, alignItems: 'center', justifyContent: 'center'},
         ]}>
         <InfoBox title={error.error.split('TypeError:')[1]} />
@@ -85,22 +95,36 @@ function FavoriteItem({
         </Text>
         {isSelectionMode ? (
           isSelected ? (
-            <View style={styles.selectCheckBoxContainer}>
+            <Animated.View
+              entering={FadeIn}
+              exiting={FadeOut}
+              style={styles.selectCheckBoxContainer}>
               <CheckBoxChecked
                 size={24}
                 color={COLORS.brandColor500}
               />
-            </View>
+            </Animated.View>
           ) : (
             <View style={styles.selectCheckBoxContainer}>
-              <CheckBoxUnchecked
-                size={24}
-                color={COLORS.neutralColors900}
-              />
+              <Animated.View
+                entering={FadeIn}
+                exiting={FadeOut}>
+                <CheckBoxUnchecked
+                  size={24}
+                  color={COLORS.neutralColors900}
+                />
+              </Animated.View>
             </View>
           )
         ) : (
-          isTrackedCity && <Text style={styles.tracked}>Currently tracked</Text>
+          isTrackedCity && (
+            <Animated.Text
+              entering={FadeInLeft}
+              exiting={FadeOutLeft}
+              style={styles.tracked}>
+              Currently tracked
+            </Animated.Text>
+          )
         )}
       </View>
       <View style={styles.row}>
@@ -191,7 +215,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   pressed: {
-    opacity: 0.7,
+    // opacity: 0.7,
   },
 });
 

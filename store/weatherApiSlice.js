@@ -4,7 +4,7 @@ import {WEATHER_API_KEY} from '@env';
 export const weatherApi = createApi({
   name: 'weatherApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://api.weatherapi.com/v1',
+    baseUrl: 'https://api.weatherapi.com/v1',
     headers: {
       key: WEATHER_API_KEY,
     },

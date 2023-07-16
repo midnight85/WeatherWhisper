@@ -19,7 +19,7 @@ function HeaderLocation({location, onPress}) {
           style={{height: 40, width: '45%'}}
         />
       ) : (
-        <Text style={styles.text}>No selected city</Text>
+        <Text style={styles.text}>No tracked city</Text>
       )}
 
       {/*<Text style={styles.text}>{location.name}</Text>*/}

@@ -1,10 +1,12 @@
 import React from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {SearchResultItem} from './index';
 import {useDispatch} from 'react-redux';
 import {setTrackedCity} from '../../store/globalStateSlice';
 import {useLazyGetForecastQuery} from '../../store/weatherApiSlice';
 import {addItemToRecent} from '../../store/recentSearch';
+import {FadeInDown, FadeOut, Layout} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 function SearchResultGroup({reverse, searchResult}) {
   const dispatch = useDispatch();
@@ -18,12 +20,16 @@ function SearchResultGroup({reverse, searchResult}) {
   const items = reverse ? [...searchResult].reverse() : searchResult;
   return (
     <ScrollView>
-      {items.map(item => (
-        <SearchResultItem
-          key={item.id}
-          onPress={() => handleItemPress(item)}
-          searchResultItem={item}
-        />
+      {items.map((item, index) => (
+        <Animated.View
+          key={item.url}
+          entering={FadeInDown.delay(index * 50)}
+          exiting={FadeOut.duration(100)}>
+          <SearchResultItem
+            onPress={() => handleItemPress(item)}
+            searchResultItem={item}
+          />
+        </Animated.View>
       ))}
     </ScrollView>
   );

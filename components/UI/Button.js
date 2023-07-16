@@ -11,6 +11,7 @@ function Button({
   leftIcon: LeftIcon,
   rightIcon: RightIcon,
   style,
+  iconSize,
   textStyle,
 }) {
   const textColor = disabled
@@ -40,7 +41,7 @@ function Button({
       ]}>
       {LeftIcon && (
         <LeftIcon
-          size={18}
+          size={iconSize ? iconSize : 18}
           color={textColor}
         />
       )}
@@ -50,7 +51,7 @@ function Button({
       </Text>
       {RightIcon && (
         <RightIcon
-          size={18}
+          size={iconSize ? iconSize : 18}
           color={textColor}
         />
       )}

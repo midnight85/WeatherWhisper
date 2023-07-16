@@ -14,6 +14,18 @@ import {
 } from '../../store/globalStateSlice';
 import {requestLocationPermission} from '../../utils/requestLocationPermission';
 import {addItemToRecent} from '../../store/recentSearch';
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  FadeInLeft,
+  FadeInUp,
+  FadeOut,
+  FadeOutDown,
+  FadeOutRight,
+  FadeOutUp,
+  ZoomInDown,
+  ZoomOutUp,
+} from 'react-native-reanimated';
 
 function SearchBar({
   searchQuery,
@@ -25,7 +37,7 @@ function SearchBar({
   const {trackedCity, isNever_ask_againLocationPermission} = useSelector(
     store => store.globalState,
   );
-  const [trigger, {data: searchResult, isLoading, isError, error}] =
+  const [trigger, {data: searchResult, isLoading, isFetching, isError, error}] =
     useLazyGetSearchQuery();
   const setSelectedFromSearch = useCallback(() => {
     if (searchResult) {
@@ -69,23 +81,34 @@ function SearchBar({
       />
       {trackedCity?.url ? (
         textInputInFocus ? (
-          <Button
-            outlined
-            text="Use current location"
-            leftIcon={Location}
-            style={{columnGap: 16, paddingVertical: 16}}
-            textStyle={{...TEXT.subT1, textAlign: 'left', flex: 1}}
-            onPress={() => {
-              setTextInputInFocus(false);
-              getLocation();
-            }}
-          />
-        ) : isLoading ? (
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}>
+            <Button
+              outlined
+              text="Use current location"
+              leftIcon={Location}
+              style={{columnGap: 16, paddingVertical: 16}}
+              iconSize={24}
+              textStyle={{...TEXT.subT1, textAlign: 'left', flex: 1}}
+              onPress={() => {
+                setTextInputInFocus(false);
+                getLocation();
+              }}
+            />
+          </Animated.View>
+        ) : isLoading || isFetching ? (
           <View style={styles.currentLocationLoaderContainer}>
             <Loader />
           </View>
         ) : (
-          <CurrentLocationItem />
+          <View>
+            <Animated.View
+              entering={FadeIn}
+              exiting={FadeOut}>
+              <CurrentLocationItem />
+            </Animated.View>
+          </View>
         )
       ) : (
         <Button

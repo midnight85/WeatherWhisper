@@ -1,4 +1,4 @@
-import React, {useCallback, useLayoutEffect, useState} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react';
 import {Text, StyleSheet, View, ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, IconButton} from '../../components/UI';
@@ -17,10 +17,23 @@ import {
 } from '../../components/Icons';
 import FavoriteItem from '../../components/Favorites/FavoriteItem';
 import {setTrackedCity} from '../../store/globalStateSlice';
+import Animated, {
+  FadeIn,
+  FadeOut,
+  FadeOutUp,
+  Layout,
+  SlideOutDown,
+  SlideOutUp,
+  ZoomInDown,
+  ZoomOutUp,
+} from 'react-native-reanimated';
+import {useIsFocused} from '@react-navigation/native';
 
 function FavoritesScreen({navigation}) {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const favorites = useSelector(store => store.favorites);
+  const reversedFavorites = [...favorites].reverse();
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const checkIsSelected = useCallback(
@@ -95,6 +108,12 @@ function FavoritesScreen({navigation}) {
       }),
     [navigation, isSelectionMode, selectedItems],
   );
+  useEffect(() => {
+    if (!isFocused) {
+      setIsSelectionMode(false);
+      setSelectedItems([]);
+    }
+  }, [isFocused]);
   if (!favorites.length) {
     return (
       <View style={styles.noFavoritesContainer}>
@@ -117,23 +136,34 @@ function FavoritesScreen({navigation}) {
           paddingBottom: 48,
         }}>
         {!isSelectionMode && (
-          <Button
-            style={{alignSelf: 'flex-end', marginBottom: 24}}
-            text="Clean all"
-            onPress={() => dispatch(cleanAllFavorites())}
-          />
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOutUp.duration(100)}>
+            <Button
+              style={{alignSelf: 'flex-end', marginBottom: 24}}
+              text="Clean all"
+              onPress={() => dispatch(cleanAllFavorites())}
+            />
+          </Animated.View>
         )}
 
         <View style={styles.itemsContainer}>
-          {[...favorites].reverse().map(item => (
-            <FavoriteItem
+          {reversedFavorites.map((item, index) => (
+            <Animated.View
               key={item.url}
-              isSelectionMode={isSelectionMode}
-              isSelected={checkIsSelected(item)}
-              onLongPress={() => handleLongPress(item)}
-              onPress={() => handlePress(item)}
-              {...item}
-            />
+              entering={ZoomInDown.delay(index * 50)}
+              exiting={ZoomOutUp}
+              layout={Layout}>
+              <FavoriteItem
+                isSelectionMode={isSelectionMode}
+                isSelected={checkIsSelected(item)}
+                onLongPress={() => handleLongPress(item)}
+                onPress={() => handlePress(item)}
+                prevItem={reversedFavorites[index - 1]}
+                nextItem={reversedFavorites[index + 1]}
+                {...item}
+              />
+            </Animated.View>
           ))}
         </View>
       </ScrollView>
@@ -150,6 +180,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.baseColors_white,
   },
   container: {
+    flex: 1,
     backgroundColor: COLORS.baseColors_white,
   },
   itemsContainer: {

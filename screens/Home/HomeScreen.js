@@ -49,11 +49,11 @@ function HomeScreen({navigation}) {
 
   const handleUnitsModalOpen = useCallback(() => {
     dispatch(setUnitsModalVisible(true));
-  }, [dispatch]);
+  }, []);
 
   const handleLocationModalOpen = useCallback(() => {
     dispatch(setLocationModalVisible(true));
-  }, [dispatch]);
+  }, []);
 
   useLayoutEffect(
     () =>
@@ -86,6 +86,7 @@ function HomeScreen({navigation}) {
   const {
     data: weatherApiData,
     isLoading,
+    isFetching,
     isSuccess,
     isError,
     error,
@@ -104,7 +105,7 @@ function HomeScreen({navigation}) {
           }}>
           <InfoBox
             icon={FavoritesNoFavorites}
-            title={'No selected city!'}
+            title={'No tracked city!'}
             text={
               'Please select a city to display the weather forecast by using the search or your current location.'
             }
@@ -113,7 +114,7 @@ function HomeScreen({navigation}) {
       </>
     );
   }
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Loader style={{backgroundColor: 'white'}} />;
   }
   if (isError) {
@@ -220,6 +221,7 @@ function HomeScreen({navigation}) {
         />
         <WeatherDetailsGroup
           style={{marginBottom: 8}}
+          isMetricUnits={isMetricUnits}
           data={{
             cloud: cloud,
             visibility: isMetricUnits ? vis_km : vis_miles,

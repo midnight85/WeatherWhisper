@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
-import {openweatherIcons} from '../../assets/openweather_icons';
 import {getDayName} from '../../utils/Forecast/getDayName';
 import {weatherIcons} from '../../assets/weather_icons';
 

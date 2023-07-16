@@ -47,6 +47,7 @@ function FiveDayForecast() {
   const {
     data: weatherApiData,
     isLoading,
+    isFetching,
     isError,
     error,
   } = useGetForecastQuery(trackedCity.url);
@@ -54,7 +55,7 @@ function FiveDayForecast() {
   return (
     <ScrollViewContainer
       contentContainerStyle={{paddingHorizontal: 0, paddingTop: 8}}>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Loader style={{marginTop: 48}} />
       ) : (
         forecastday.map(day => (

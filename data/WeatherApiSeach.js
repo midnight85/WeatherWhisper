@@ -45,3 +45,33 @@ export const weatherApiSeach = [
     url: 'washington-illinois-united-states-of-america',
   },
 ];
+
+// "current": {
+//   "last_updated_epoch": 1689116400,
+//     "last_updated": "2023-07-12 02:00",
+//     "temp_c": 13.9,
+//     "temp_f": 57.0,
+//     "is_day": 0,
+//     "condition": {
+//     "text": "Clear",
+//       "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
+//       "code": 1000
+//   },
+//   "wind_mph": 6.3,
+//     "wind_kph": 10.1,
+//     "wind_degree": 307,
+//     "wind_dir": "NW",
+//     "pressure_mb": 1014.0,
+//     "pressure_in": 29.96,
+//     "precip_mm": 0.0,
+//     "precip_in": 0.0,
+//     "humidity": 68,
+//     "cloud": 18,
+//     "feelslike_c": 13.3,
+//     "feelslike_f": 55.9,
+//     "vis_km": 10.0,
+//     "vis_miles": 6.0,
+//     "uv": 1.0,
+//     "gust_mph": 11.6,
+//     "gust_kph": 18.7
+// }

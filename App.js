@@ -36,6 +36,9 @@ import {COLORS, FONT_WEIGHT, TEXT} from './constants/GlobalStyles';
 import {Provider} from 'react-redux';
 import {persistor, store} from './store';
 import {PersistGate} from 'redux-persist/integration/react';
+import {enableFreeze} from 'react-native-screens';
+
+enableFreeze(true);
 
 const BottomTabs = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -43,7 +46,7 @@ const Stack = createStackNavigator();
 function Main() {
   return (
     <BottomTabs.Navigator
-      initialRouteName={FAVORITES_SCREEN}
+      // initialRouteName={FAVORITES_SCREEN}
       screenOptions={{
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
@@ -126,27 +129,27 @@ function Main() {
           },
         }}
       />
-      <BottomTabs.Screen
-        name={ACCOUNT_SCREEN}
-        component={AccountStack}
-        options={{
-          headerShown: false,
-          tabBarLabel: 'Account',
-          tabBarIcon: ({focused, color, size}) => {
-            return focused ? (
-              <UserFilled
-                color={color}
-                size={size}
-              />
-            ) : (
-              <User
-                color={color}
-                size={size}
-              />
-            );
-          },
-        }}
-      />
+      {/*<BottomTabs.Screen*/}
+      {/*  name={ACCOUNT_SCREEN}*/}
+      {/*  component={AccountStack}*/}
+      {/*  options={{*/}
+      {/*    headerShown: false,*/}
+      {/*    tabBarLabel: 'Account',*/}
+      {/*    tabBarIcon: ({focused, color, size}) => {*/}
+      {/*      return focused ? (*/}
+      {/*        <UserFilled*/}
+      {/*          color={color}*/}
+      {/*          size={size}*/}
+      {/*        />*/}
+      {/*      ) : (*/}
+      {/*        <User*/}
+      {/*          color={color}*/}
+      {/*          size={size}*/}
+      {/*        />*/}
+      {/*      );*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*/>*/}
     </BottomTabs.Navigator>
   );
 }

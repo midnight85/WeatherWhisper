@@ -11,11 +11,12 @@ function CurrentLocationItem() {
   const {
     data: weatherApiData,
     isLoading,
+    isFetching,
     isSuccess,
     isError,
     error,
   } = useGetForecastQuery(trackedCity.url, {skip: !trackedCity.url});
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <View style={[styles.container, {paddingVertical: 12}]}>
         <Loader />

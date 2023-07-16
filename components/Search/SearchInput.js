@@ -3,6 +3,7 @@ import {Text, StyleSheet, TextInput, View} from 'react-native';
 import {COLORS, FONT_WEIGHT, TEXT} from '../../constants/GlobalStyles';
 import {ArrowBack, Search, SearchClear} from '../Icons';
 import {IconButton} from '../UI';
+import Animated, {FadeIn, FadeOut, FadeOutLeft} from 'react-native-reanimated';
 
 function SearchInput({
   value,
@@ -25,17 +26,27 @@ function SearchInput({
   return (
     <View style={styles.container}>
       {textInputInFocus ? (
-        <IconButton
-          onPress={handleTextInputInFocus}
-          icon={ArrowBack}
-          color={COLORS.neutralColors600}
-          style={{margin: -8}}
-        />
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut.duration(200)}>
+          <IconButton
+            onPress={handleTextInputInFocus}
+            icon={ArrowBack}
+            color={COLORS.neutralColors600}
+            style={{margin: -8}}
+          />
+        </Animated.View>
       ) : (
-        <Search
-          size={24}
-          color={COLORS.neutralColors600}
-        />
+        <View>
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut.duration(200)}>
+            <Search
+              size={24}
+              color={COLORS.neutralColors600}
+            />
+          </Animated.View>
+        </View>
       )}
       <TextInput
         ref={textInputRef}

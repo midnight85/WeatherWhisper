@@ -26,6 +26,13 @@ import {Loader} from '../../components';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {cleanAllRecent} from '../../store/recentSearch';
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  FadeOut,
+  FadeOutDown,
+  Layout,
+} from 'react-native-reanimated';
 
 function SearchScreen() {
   const dispatch = useDispatch();
@@ -38,17 +45,18 @@ function SearchScreen() {
   const {
     data: weatherApiSearchData,
     isLoading,
+    isFetching,
     isSuccess,
     isError,
     error,
   } = useGetSearchQuery(debouncedSearchQuery, {
-    skip: debouncedSearchQuery.length < 3,
+    skip: !debouncedSearchQuery,
+    // queryKey: ['getSearch', debouncedSearchQuery],
   });
   const isShowSearchResult = textInputInFocus || searchQuery;
   const handleClearRecent = () => {
     dispatch(cleanAllRecent());
   };
-
   useEffect(() => {
     if (!isFocused) {
       setSearchQuery('');
@@ -95,8 +103,8 @@ function SearchScreen() {
           />
         )}
       </View>
-      <ScrollView>
-        {isLoading ? (
+      <View style={{flex: 1}}>
+        {isLoading || isFetching ? (
           <Loader />
         ) : !searchQuery || !weatherApiSearchData?.length ? (
           resentSearchItems.length && !textInputInFocus ? (
@@ -105,21 +113,28 @@ function SearchScreen() {
               searchResult={resentSearchItems}
             />
           ) : (
-            <InfoBox
-              style={{marginTop: 48, marginHorizontal: 48}}
-              icon={isShowSearchResult ? SearchNoResults : SearchNoRecents}
-              title={isShowSearchResult ? 'No results' : 'No recent'}
-              text={
-                !weatherApiSearchData?.length && searchQuery && isSuccess
-                  ? "Oops! We couldn't find the city you're searching for. Please double-check the spelling and try again."
-                  : 'Stay informed about the weather! Enter a city name to track the current weather conditions and forecast'
-              }
-            />
+            <Animated.View
+              style={{flex: 1}}
+              entering={FadeIn}
+              exiting={FadeOut}>
+              <InfoBox
+                style={{marginTop: 48, marginHorizontal: 48}}
+                icon={isShowSearchResult ? SearchNoResults : SearchNoRecents}
+                title={isShowSearchResult ? 'No results' : 'No recent'}
+                text={
+                  !weatherApiSearchData?.length && searchQuery && isSuccess
+                    ? "Oops! We couldn't find the city you're searching for. Please double-check the spelling and try again."
+                    : 'Stay informed about the weather! Enter a city name to track the current weather conditions and forecast'
+                }
+              />
+            </Animated.View>
           )
         ) : (
-          <SearchResultGroup searchResult={weatherApiSearchData} />
+          debouncedSearchQuery === searchQuery && (
+            <SearchResultGroup searchResult={weatherApiSearchData} />
+          )
         )}
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

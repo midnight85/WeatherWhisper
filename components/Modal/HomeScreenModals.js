@@ -74,7 +74,7 @@ function HomeScreenModals() {
           })
         ) : (
           <MenuItem
-            text={'No favorites country'}
+            text={'No favorite cities'}
             onPress={() => {
               handleLocationModalClose();
             }}
