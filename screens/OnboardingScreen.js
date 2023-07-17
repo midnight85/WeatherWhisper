@@ -1,8 +1,16 @@
-import React from 'react';
-import {Text, StyleSheet, View, ScrollView, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  Modal,
+  SafeAreaView,
+  Pressable,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Button from '../components/UI/Button';
-import {COLORS} from '../constants/GlobalStyles';
+import {COLORS, ELEVATION} from '../constants/GlobalStyles';
 import {
   SettingsOutlined,
   ChevronRight,
@@ -13,146 +21,44 @@ import {
   Cloud,
   Visibility,
   Pressure,
+  Fahrenheit,
+  Check,
 } from '../components/Icons';
-import MainForecast from '../components/UI/Forecast/MainForecast';
-import WeatherDetails from '../components/UI/Forecast/WeatherDetails';
-import WeatherDetailsGroup from '../components/UI/Forecast/WeatherDetailsGroup';
+import MainForecast from '../components/Forecast/MainForecast';
+import WeatherDetails from '../components/Forecast/WeatherDetails';
+import WeatherDetailsGroup from '../components/Forecast/WeatherDetailsGroup';
 import Title from '../components/UI/Title';
-import SunDetails from '../components/UI/Forecast/SunDetails';
-import PollutantDetails from '../components/UI/AirQuality/PollutantDetails';
+import SunDetails from '../components/Forecast/SunDetails';
+import PollutantDetails from '../components/AirQuality/PollutantDetails';
 import {pollutantDetailsData} from '../data/pollutantDetailsData';
-import PollutantDetailsGroup from '../components/UI/AirQuality/PollutantDetailsGroup';
+import PollutantDetailsGroup from '../components/AirQuality/PollutantDetailsGroup';
 import IconButton from '../components/UI/IconButton';
-import PollutantIndex from '../components/UI/AirQuality/PollutantIndex';
+import PollutantIndex from '../components/AirQuality/PollutantIndex';
 import {airPullution} from '../data/AirPullution';
-import PollutantScale from '../components/UI/AirQuality/PollutantScale';
-import PollutantScaleGroup from '../components/UI/AirQuality/PollutantScaleGroup';
-import DayForecastGroup from '../components/UI/Forecast/DayForecastGroup';
-import DayForecastDropdown from '../components/UI/Forecast/DayForecastDropdown';
-import DayForecast from '../components/UI/Forecast/DayForecast';
+import PollutantScale from '../components/AirQuality/PollutantScale';
+import PollutantScaleGroup from '../components/AirQuality/PollutantScaleGroup';
+import DayForecastGroup from '../components/Forecast/DayForecastGroup';
+import DayForecastDropdown from '../components/Forecast/DayForecastDropdown';
+import DayForecast from '../components/Forecast/DayForecast';
+import {adaptiveValue} from '../utils/adaptiveValue';
+import ModalMenu from '../components/Modal/ModalMenu';
+import {useGetForecastQuery} from '../store/weatherApiSlice';
 
 function OnboardingScreen() {
   const navigation = useNavigation();
-
+  // const {data} = useGetForecastQuery();
+  // console.log(data?.current);
   const components = airPullution.list[0].components;
-
+  const [modalVisible, setModalVisible] = useState(true);
   return (
-    <ScrollView style={{backgroundColor: 'white'}}>
-      <View style={styles.container}>
-        {/*<MainForecast />*/}
-        {/*<WeatherDetailsGroup*/}
-        {/*  data={{humidity: '6%', wind: '8 mph', precipitation: 'No'}}*/}
-        {/*/>*/}
-        {/*<View style={{flexDirection: 'row', justifyContent: 'space-between'}}>*/}
-        {/*  <Title text="Other days" />*/}
-        {/*  <Button*/}
-        {/*    text="5 days forecast"*/}
-        {/*    rightIcon={ChevronRight}*/}
-        {/*  />*/}
-        {/*</View>*/}
-        {/*<Title text="More details" />*/}
-        {/*<WeatherDetailsGroup*/}
-        {/*  data={{cloud: '0%', visibility: '31 mi', pressure: '30.10 in'}}*/}
-        {/*/>*/}
-        {/*<View style={{flexDirection: 'row', gap: 8}}>*/}
-        {/*  <SunDetails*/}
-        {/*    value="5:37"*/}
-        {/*    status="Sunrise"*/}
-        {/*  />*/}
-        {/*  <SunDetails*/}
-        {/*    value="21:14"*/}
-        {/*    status="Sunset"*/}
-        {/*  />*/}
-        {/*</View>*/}
-        {/*<PollutantDetailsGroup />*/}
-        {/*<View style={{gap: 10}}>*/}
-        {/*  <PollutantIndex index={1} />*/}
-        {/*  <PollutantIndex index={2} />*/}
-        {/*  <PollutantIndex index={3} />*/}
-        {/*  <PollutantIndex index={4} />*/}
-        {/*  <PollutantIndex index={5} />*/}
-        {/*</View>*/}
-        {/*<PollutantScaleGroup components={components} />*/}
-        <DayForecastGroup>
-          {[
-            {dt_txt: '2023-06-21 21:00:00', icon: '04n', temp: '23'},
-            {dt_txt: '2023-06-22 21:00:00', icon: '04d', temp: '19'},
-            {dt_txt: '2023-06-23 21:00:00', icon: '10n', temp: '28'},
-            {dt_txt: '2023-06-24 21:00:00', icon: '03n', temp: '11'},
-            {dt_txt: '2023-06-25 21:00:00', icon: '01d', temp: '24'},
-          ].map((item, index) => (
-            <DayForecast
-              key={index}
-              day
-              {...item}
-            />
-          ))}
-        </DayForecastGroup>
-        <View>
-          {[
-            {
-              dt_txt: '2023-06-21 21:00:00',
-              main: 'Rain',
-              icon: '04n',
-              temp: '23',
-            },
-            {
-              dt_txt: '2023-06-22 21:00:00',
-              main: 'Clear',
-              icon: '04d',
-              temp: '19',
-            },
-            {
-              dt_txt: '2023-06-23 21:00:00',
-              main: 'Rain',
-              icon: '10n',
-              temp: '28',
-            },
-            {
-              dt_txt: '2023-06-24 21:00:00',
-              main: 'Clouds',
-              icon: '03n',
-              temp: '11',
-            },
-            {
-              dt_txt: '2023-06-25 21:00:00',
-              main: 'Rain',
-              icon: '01d',
-              temp: '24',
-            },
-          ].map((item, index) => {
-            return (
-              <DayForecastDropdown
-                key={index}
-                {...item}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    columnGap: 8,
-                  }}>
-                  {[
-                    {dt_txt: '2023-06-22 00:00:00', icon: '04n', temp: '23'},
-                    {dt_txt: '2023-06-22 03:00:00', icon: '04d', temp: '19'},
-                    {dt_txt: '2023-06-22 06:00:00', icon: '10n', temp: '28'},
-                    {dt_txt: '2023-06-22 09:00:00', icon: '03n', temp: '11'},
-                    {dt_txt: '2023-06-22 12:00:00', icon: '01d', temp: '24'},
-                    {dt_txt: '2023-06-22 15:00:00', icon: '10n', temp: '14'},
-                    {dt_txt: '2023-06-22 18:00:00', icon: '01d', temp: '24'},
-                    {dt_txt: '2023-06-22 21:00:00', icon: '01d', temp: '32'},
-                  ].map((item, index) => (
-                    <DayForecast
-                      key={index}
-                      time
-                      {...item}
-                    />
-                  ))}
-                </View>
-              </DayForecastDropdown>
-            );
-          })}
-        </View>
-      </View>
-    </ScrollView>
+    // <ScrollView style={{backgroundColor: 'white'}}>
+    <View style={styles.container}>
+      <Text onPress={() => setModalVisible(true)}>Show</Text>
+      <ModalMenu
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </View>
   );
 }
 

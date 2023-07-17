@@ -15,21 +15,19 @@ import {weatherApi} from './weatherApiSlice';
 import globalStateReducer from './globalStateSlice';
 import favoritesReducer from './favoritesSlice';
 import recentSearchReducer from './recentSearchSlice';
-import offlineDataReducer from './offlineDataSlice';
 import {setupListenersReactNative} from './setupListenersReactNative';
 
 const reducers = combineReducers({
   globalState: globalStateReducer,
   favorites: favoritesReducer,
   recentSearch: recentSearchReducer,
-  offlineData: offlineDataReducer,
   [weatherApi.reducerPath]: weatherApi.reducer,
 });
 const persistConfig = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  blacklist: [weatherApi.reducerPath],
+  // blacklist: [weatherApi.reducerPath],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 

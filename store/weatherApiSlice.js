@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {REHYDRATE} from 'redux-persist';
 import {WEATHER_API_KEY} from '@env';
 
 export const weatherApi = createApi({
@@ -11,6 +12,11 @@ export const weatherApi = createApi({
   }),
   refetchOnReconnect: true,
   refetchOnFocus: true,
+  extractRehydrationInfo(action, {reducerPath}) {
+    if (action.type === REHYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: builder => ({
     getForecast: builder.query({
       query: queryName => ({

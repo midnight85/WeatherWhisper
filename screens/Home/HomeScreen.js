@@ -42,6 +42,9 @@ import {
 } from '../../store/globalStateSlice';
 import {COLORS} from '../../constants/GlobalStyles';
 import {InfoBox, Loader, HeaderLocation} from '../../components';
+import NetInfo from '@react-native-community/netinfo';
+import Snackbar from 'react-native-snackbar';
+import {getTimeAgo} from '../../utils/getTimeAgo';
 
 function HomeScreen({navigation}) {
   const dispatch = useDispatch();
@@ -55,8 +58,6 @@ function HomeScreen({navigation}) {
   const handleLocationModalOpen = useCallback(() => {
     dispatch(setLocationModalVisible(true));
   }, []);
-
-  useEffect(() => {}, []);
 
   useLayoutEffect(
     () =>
@@ -93,7 +94,40 @@ function HomeScreen({navigation}) {
     isSuccess,
     isError,
     error,
+    fulfilledTimeStamp,
   } = useGetForecastQuery(trackedCity.url);
+
+  const handleNetworkConnection = useCallback(
+    state => {
+      console.log('Is connected?', state.isConnected);
+      if (!state.isConnected) {
+        Snackbar.show({
+          marginBottom: 60,
+          backgroundColor: COLORS.neutralColors900,
+          text: `Offline mode
+Last updated ${getTimeAgo(fulfilledTimeStamp)}`,
+          textColor: COLORS.neutralColors100,
+          duration: Snackbar.LENGTH_INDEFINITE,
+          numberOfLines: 2,
+          action: {
+            text: 'OK',
+            textColor: COLORS.brandColor500,
+            onPress: () => {},
+          },
+        });
+      } else {
+        Snackbar.dismiss();
+      }
+    },
+    [fulfilledTimeStamp],
+  );
+
+  useEffect(() => {
+    const netListener = NetInfo.addEventListener(handleNetworkConnection);
+    // Unsubscribe
+    return () => netListener();
+  }, []);
+
   if (!trackedCity?.url) {
     return (
       <>
