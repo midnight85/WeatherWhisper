@@ -4,7 +4,7 @@ import {SearchResultItem} from './index';
 import {useDispatch} from 'react-redux';
 import {setTrackedCity} from '../../store/globalStateSlice';
 import {useLazyGetForecastQuery} from '../../store/weatherApiSlice';
-import {addItemToRecent} from '../../store/recentSearch';
+import {addItemToRecent} from '../../store/recentSearchSlice';
 import {FadeInDown, FadeOut, Layout} from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 

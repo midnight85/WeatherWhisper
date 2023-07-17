@@ -9,6 +9,8 @@ export const weatherApi = createApi({
       key: WEATHER_API_KEY,
     },
   }),
+  refetchOnReconnect: true,
+  refetchOnFocus: true,
   endpoints: builder => ({
     getForecast: builder.query({
       query: queryName => ({

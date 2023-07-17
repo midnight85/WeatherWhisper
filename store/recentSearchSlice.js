@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-const recentSearch = createSlice({
+const recentSearchSlice = createSlice({
   name: 'recentSearch',
   initialState: [],
   reducers: {
@@ -26,5 +26,5 @@ const recentSearch = createSlice({
   },
 });
 export const {addItemToRecent, removeItemFromRecent, cleanAllRecent} =
-  recentSearch.actions;
-export default recentSearch.reducer;
+  recentSearchSlice.actions;
+export default recentSearchSlice.reducer;

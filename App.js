@@ -37,8 +37,19 @@ import {Provider} from 'react-redux';
 import {persistor, store} from './store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {enableFreeze} from 'react-native-screens';
+import NetInfo from '@react-native-community/netinfo';
+import {weatherApi} from './store/weatherApiSlice';
 
 enableFreeze(true);
+
+NetInfo.fetch().then(state => {
+  // Dispatch the initial network connectivity state
+  store.dispatch(
+    weatherApi.util.updateQueryData('getForecast', undefined, {
+      isConnected: state.isConnected,
+    }),
+  );
+});
 
 const BottomTabs = createBottomTabNavigator();
 const Stack = createStackNavigator();

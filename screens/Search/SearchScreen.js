@@ -25,7 +25,7 @@ import {
 import {Loader} from '../../components';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {cleanAllRecent} from '../../store/recentSearch';
+import {cleanAllRecent} from '../../store/recentSearchSlice';
 import Animated, {
   FadeIn,
   FadeInDown,
@@ -33,6 +33,7 @@ import Animated, {
   FadeOutDown,
   Layout,
 } from 'react-native-reanimated';
+import {HomeScreenModals} from '../../components/Modal';
 
 function SearchScreen() {
   const dispatch = useDispatch();
@@ -63,6 +64,25 @@ function SearchScreen() {
     }
   }, [isFocused]);
   if (isError) {
+    if (error.status === 403) {
+      return (
+        <>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 48,
+            }}>
+            <InfoBox
+              icon={SearchClear}
+              title={error.data.error.message}
+            />
+          </View>
+        </>
+      );
+    }
     return (
       <SafeAreaView style={styles.container}>
         <SearchBar

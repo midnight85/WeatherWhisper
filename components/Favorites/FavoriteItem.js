@@ -7,7 +7,7 @@ import {
   TEXT,
 } from '../../constants/GlobalStyles';
 import {useSelector} from 'react-redux';
-import {CheckBoxChecked, CheckBoxUnchecked} from '../Icons';
+import {CheckBoxChecked, CheckBoxUnchecked, SearchClear} from '../Icons';
 import {useGetForecastQuery} from '../../store/weatherApiSlice';
 import {InfoBox, Loader} from '../index';
 import {weatherIcons} from '../../assets/weather_icons';
@@ -63,17 +63,45 @@ function FavoriteItem({
     );
   }
   if (isError) {
-    return (
-      <View
-        style={[
-          styles.container,
-          styles.notSelectionModeContainer,
-          {height: 176, alignItems: 'center', justifyContent: 'center'},
-        ]}>
-        <InfoBox title={error.error.split('TypeError:')[1]} />
-      </View>
-    );
+    console.log(error);
+    if (error.status === 403) {
+      return (
+        <>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 48,
+            }}>
+            <InfoBox
+              icon={SearchClear}
+              title={error.data.error.message}
+            />
+          </View>
+        </>
+      );
+    }
+    if (error?.error === 'TypeError: Network request failed') {
+      return (
+        <View
+          style={[
+            styles.container,
+            styles.notSelectionModeContainer,
+            {
+              height: 176,
+              ...ELEVATION.small,
+              alignItems: 'center',
+              justifyContent: 'center',
+            },
+          ]}>
+          <InfoBox title={error.error.split('TypeError:')[1]} />
+        </View>
+      );
+    }
   }
+
   const localtime = currentWeatherApiData?.location.localtime;
   const [month, date, year] = new Date(localtime).toDateString().split(' ');
   const {temp_c, temp_f, condition} = currentWeatherApiData?.current;

@@ -1,19 +1,5 @@
-// import {configureStore} from '@reduxjs/toolkit';
-// import {weatherApi} from './weatherApiSlice';
-// import globalStateReducer from './globalStateSlice';
-// import favoritesReducer from './favoritesSlice';
-//
-// const store = configureStore({
-//   reducer: {
-//     globalState: globalStateReducer,
-//     favorites: favoritesReducer,
-//     [weatherApi.reducerPath]: weatherApi.reducer,
-//   },
-//   middleware: getDefaultMiddleware =>
-//     getDefaultMiddleware().concat(weatherApi.middleware),
-// });
-// export default store;
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
+import {setupListeners} from '@reduxjs/toolkit/query';
 import {
   persistStore,
   persistReducer,
@@ -28,12 +14,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {weatherApi} from './weatherApiSlice';
 import globalStateReducer from './globalStateSlice';
 import favoritesReducer from './favoritesSlice';
-import recentSearchReducer from './recentSearch';
+import recentSearchReducer from './recentSearchSlice';
+import offlineDataReducer from './offlineDataSlice';
+import {setupListenersReactNative} from './setupListenersReactNative';
 
 const reducers = combineReducers({
   globalState: globalStateReducer,
   favorites: favoritesReducer,
   recentSearch: recentSearchReducer,
+  offlineData: offlineDataReducer,
   [weatherApi.reducerPath]: weatherApi.reducer,
 });
 const persistConfig = {
@@ -55,3 +44,5 @@ export const store = configureStore({
     }).concat(weatherApi.middleware),
 });
 export let persistor = persistStore(store);
+
+setupListeners(setupListenersReactNative(store.dispatch));

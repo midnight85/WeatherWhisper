@@ -1,4 +1,4 @@
-import React, {useCallback, useLayoutEffect} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect} from 'react';
 import {Text, View} from 'react-native';
 import {AQI_DETAILS, FIVE_DAY_FORECAST} from '../../constants/ScreenNames';
 import {
@@ -46,6 +46,7 @@ import {InfoBox, Loader, HeaderLocation} from '../../components';
 function HomeScreen({navigation}) {
   const dispatch = useDispatch();
   const {trackedCity, isMetricUnits} = useSelector(store => store.globalState);
+  const offlineData = useSelector(store => store.offlineData);
 
   const handleUnitsModalOpen = useCallback(() => {
     dispatch(setUnitsModalVisible(true));
@@ -54,6 +55,8 @@ function HomeScreen({navigation}) {
   const handleLocationModalOpen = useCallback(() => {
     dispatch(setLocationModalVisible(true));
   }, []);
+
+  useEffect(() => {}, []);
 
   useLayoutEffect(
     () =>
@@ -90,7 +93,7 @@ function HomeScreen({navigation}) {
     isSuccess,
     isError,
     error,
-  } = useGetForecastQuery(trackedCity.url, {skip: !trackedCity.url});
+  } = useGetForecastQuery(trackedCity.url);
   if (!trackedCity?.url) {
     return (
       <>
@@ -118,24 +121,47 @@ function HomeScreen({navigation}) {
     return <Loader style={{backgroundColor: 'white'}} />;
   }
   if (isError) {
-    return (
-      <>
-        <HomeScreenModals />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 48,
-          }}>
-          <InfoBox
-            icon={SearchClear}
-            title={error.error.split('TypeError:')[1]}
-          />
-        </View>
-      </>
-    );
+    console.log(error);
+    if (error.status === 403) {
+      return (
+        <>
+          <HomeScreenModals />
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 48,
+            }}>
+            <InfoBox
+              icon={SearchClear}
+              title={error.data.error.message}
+            />
+          </View>
+        </>
+      );
+    }
+    if (error.status === 'FETCH_ERROR') {
+      return (
+        <>
+          <HomeScreenModals />
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 48,
+            }}>
+            <InfoBox
+              icon={SearchClear}
+              title={error.error.split('TypeError:')[1]}
+            />
+          </View>
+        </>
+      );
+    }
   }
   const localtime = weatherApiData?.location.localtime;
   const forecastday = weatherApiData?.forecast.forecastday;

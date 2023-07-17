@@ -13,7 +13,7 @@ import {
   setTrackedCity,
 } from '../../store/globalStateSlice';
 import {requestLocationPermission} from '../../utils/requestLocationPermission';
-import {addItemToRecent} from '../../store/recentSearch';
+import {addItemToRecent} from '../../store/recentSearchSlice';
 import Animated, {
   FadeIn,
   FadeInDown,
