@@ -214,10 +214,7 @@ Last updated ${getTimeAgo(fulfilledTimeStamp)}`,
     air_quality,
   } = weatherApiData?.current;
   const {maxtemp_c, maxtemp_f, mintemp_c, mintemp_f} = todayForecastData.day;
-  const {daily_will_it_rain} = getNearestHourData(
-    localtime,
-    todayForecastData.hour,
-  );
+  const {will_it_rain} = getNearestHourData(localtime, todayForecastData.hour);
   const {sunrise, sunset} = todayForecastData.astro;
 
   return (
@@ -240,7 +237,7 @@ Last updated ${getTimeAgo(fulfilledTimeStamp)}`,
           data={{
             humidity: humidity,
             wind: isMetricUnits ? wind_kph : wind_mph,
-            precipitation: daily_will_it_rain ? 'Yes' : 'No',
+            precipitation: will_it_rain ? 'Yes' : 'No',
           }}
           style={{marginBottom: 24}}
         />

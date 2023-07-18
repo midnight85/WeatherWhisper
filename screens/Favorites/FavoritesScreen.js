@@ -83,7 +83,7 @@ function FavoritesScreen({navigation}) {
     () =>
       navigation.setOptions({
         headerTitle: isSelectionMode
-          ? selectedItems.length.toString()
+          ? `${selectedItems.length.toString()}  selected`
           : 'Favorites',
         headerLeft: () =>
           isSelectionMode ? (

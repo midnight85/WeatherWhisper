@@ -117,8 +117,8 @@ function Main() {
         options={{
           headerTitleStyle: {
             color: COLORS.neutralColors900,
-            ...FONT_WEIGHT.medium,
-            ...TEXT.subT1,
+            ...FONT_WEIGHT.semiBold,
+            ...TEXT.h6,
           },
           headerStyle: {
             borderBottomWidth: 1,

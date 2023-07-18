@@ -98,9 +98,12 @@ function SearchBar({
             />
           </Animated.View>
         ) : isLoading || isFetching ? (
-          <View style={styles.currentLocationLoaderContainer}>
+          <Animated.View
+            style={styles.currentLocationLoaderContainer}
+            entering={FadeIn}
+            exiting={FadeOut}>
             <Loader />
-          </View>
+          </Animated.View>
         ) : (
           <View>
             <Animated.View
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.neutralColors500,
     backgroundColor: COLORS.baseColors_white,
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingLeft: 16,
     paddingRight: 24,
     flexDirection: 'row',

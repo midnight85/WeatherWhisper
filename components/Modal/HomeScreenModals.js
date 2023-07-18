@@ -1,5 +1,6 @@
 import React, {useCallback} from 'react';
 import {Text, StyleSheet} from 'react-native';
+
 import {MenuItem, ModalMenu} from './index';
 import {Celsius, Location} from '../Icons';
 import {
@@ -9,9 +10,14 @@ import {
   setUnitsModalVisible,
 } from '../../store/globalStateSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import {Button} from '../UI';
+import {SearchScreen} from '../../screens';
+import {useNavigation} from '@react-navigation/native';
+import {SEARCH_SCREEN} from '../../constants/ScreenNames';
 
 function HomeScreenModals() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {trackedCity, isMetricUnits, unitsModalVisible, locationModalVisible} =
     useSelector(store => store.globalState);
   const favorites = useSelector(store => store.favorites);
@@ -27,6 +33,10 @@ function HomeScreenModals() {
   const setImperialUnits = useCallback(() => {
     dispatch(setIsMetricUnits(false));
   }, [dispatch]);
+  const handleNavigate = useCallback(() => {
+    navigation.navigate(SEARCH_SCREEN);
+    handleLocationModalClose();
+  }, [navigation]);
   return (
     <>
       <ModalMenu
@@ -80,6 +90,11 @@ function HomeScreenModals() {
             }}
           />
         )}
+        <Button
+          text="Use Search"
+          style={{width: '100%', paddingVertical: 14}}
+          onPress={handleNavigate}
+        />
       </ModalMenu>
     </>
   );

@@ -54,7 +54,9 @@ function SearchScreen() {
     skip: !debouncedSearchQuery,
     // queryKey: ['getSearch', debouncedSearchQuery],
   });
-  const isShowSearchResult = textInputInFocus || searchQuery;
+  const isShowSearchResult =
+    (searchQuery.length && weatherApiSearchData?.length) ||
+    (searchQuery.length && textInputInFocus);
   const handleClearRecent = () => {
     dispatch(cleanAllRecent());
   };
@@ -124,10 +126,11 @@ function SearchScreen() {
         )}
       </View>
       <View style={{flex: 1}}>
-        {isLoading || isFetching ? (
+        {isFetching || isLoading ? (
           <Loader />
         ) : !searchQuery || !weatherApiSearchData?.length ? (
-          resentSearchItems.length && !textInputInFocus ? (
+          !searchQuery.length ||
+          (resentSearchItems.length && !textInputInFocus) ? (
             <SearchResultGroup
               reverse
               searchResult={resentSearchItems}
@@ -138,7 +141,7 @@ function SearchScreen() {
               entering={FadeIn}
               exiting={FadeOut}>
               <InfoBox
-                style={{marginTop: 48, marginHorizontal: 48}}
+                style={{marginTop: '35%', marginHorizontal: 48}}
                 icon={isShowSearchResult ? SearchNoResults : SearchNoRecents}
                 title={isShowSearchResult ? 'No results' : 'No recent'}
                 text={

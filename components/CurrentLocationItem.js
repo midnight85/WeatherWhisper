@@ -1,12 +1,15 @@
-import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {Text, StyleSheet, View, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useGetForecastQuery} from '../store/weatherApiSlice';
 import {LocationHome} from './Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from '../constants/GlobalStyles';
 import {Loader} from './index';
+import {useNavigation} from '@react-navigation/native';
+import {HOME_SCREEN} from '../constants/ScreenNames';
 
 function CurrentLocationItem() {
+  const navigation = useNavigation();
   const {trackedCity, isMetricUnits} = useSelector(store => store.globalState);
   const {
     data: weatherApiData,
@@ -16,6 +19,9 @@ function CurrentLocationItem() {
     isError,
     error,
   } = useGetForecastQuery(trackedCity.url, {skip: !trackedCity.url});
+  const handleNavigate = useCallback(() => {
+    navigation.navigate(HOME_SCREEN);
+  }, [navigation]);
   if (isLoading || isFetching) {
     return (
       <View style={[styles.container, {paddingVertical: 12}]}>
@@ -24,7 +30,9 @@ function CurrentLocationItem() {
     );
   }
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={({pressed}) => [styles.container, pressed && styles.pressed]}
+      onPress={handleNavigate}>
       <LocationHome
         size={24}
         color={COLORS.neutralColors600}
@@ -39,7 +47,7 @@ function CurrentLocationItem() {
           : Math.round(weatherApiData?.current.temp_f)}
         °
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -69,6 +77,7 @@ const styles = StyleSheet.create({
     ...FONT_WEIGHT.medium,
     ...TEXT.body2,
   },
+  pressed: {opacity: 0.7},
 });
 
 export default CurrentLocationItem;

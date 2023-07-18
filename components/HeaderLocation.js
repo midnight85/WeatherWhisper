@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, Pressable} from 'react-native';
+import {Text, StyleSheet, Pressable, View} from 'react-native';
 import {ChevronRight, Location} from './Icons';
 import {COLORS, FONT_WEIGHT, TEXT} from '../constants/GlobalStyles';
 import LocationTitle from './LocationTitle';
@@ -23,10 +23,12 @@ function HeaderLocation({location, onPress}) {
       )}
 
       {/*<Text style={styles.text}>{location.name}</Text>*/}
-      <ChevronRight
-        size={24}
-        color={COLORS.neutralColors600}
-      />
+      <View style={{transform: [{rotate: '90deg'}]}}>
+        <ChevronRight
+          size={24}
+          color={COLORS.neutralColors600}
+        />
+      </View>
     </Pressable>
   );
 }
