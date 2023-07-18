@@ -49,7 +49,6 @@ import {getTimeAgo} from '../../utils/getTimeAgo';
 function HomeScreen({navigation}) {
   const dispatch = useDispatch();
   const {trackedCity, isMetricUnits} = useSelector(store => store.globalState);
-  const offlineData = useSelector(store => store.offlineData);
 
   const handleUnitsModalOpen = useCallback(() => {
     dispatch(setUnitsModalVisible(true));
@@ -99,7 +98,6 @@ function HomeScreen({navigation}) {
 
   const handleNetworkConnection = useCallback(
     state => {
-      console.log('Is connected?', state.isConnected);
       if (!state.isConnected) {
         Snackbar.show({
           marginBottom: 60,
@@ -127,7 +125,6 @@ Last updated ${getTimeAgo(fulfilledTimeStamp)}`,
     // Unsubscribe
     return () => netListener();
   }, []);
-
   if (!trackedCity?.url) {
     return (
       <>

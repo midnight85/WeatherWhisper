@@ -11,10 +11,9 @@ export const weatherApi = createApi({
     },
   }),
   refetchOnReconnect: true,
-  refetchOnFocus: true,
   extractRehydrationInfo(action, {reducerPath}) {
     if (action.type === REHYDRATE) {
-      return action.payload[reducerPath];
+      return action.payload?.[reducerPath];
     }
   },
   endpoints: builder => ({
