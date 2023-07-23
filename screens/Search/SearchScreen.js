@@ -129,8 +129,9 @@ function SearchScreen() {
         {isFetching || isLoading ? (
           <Loader />
         ) : !searchQuery || !weatherApiSearchData?.length ? (
-          !searchQuery.length ||
-          (resentSearchItems.length && !textInputInFocus) ? (
+          !searchQuery.length &&
+          resentSearchItems.length &&
+          (!textInputInFocus || (textInputInFocus && !searchQuery.length)) ? (
             <SearchResultGroup
               reverse
               searchResult={resentSearchItems}
@@ -145,7 +146,7 @@ function SearchScreen() {
                 icon={isShowSearchResult ? SearchNoResults : SearchNoRecents}
                 title={isShowSearchResult ? 'No results' : 'No recent'}
                 text={
-                  !weatherApiSearchData?.length && searchQuery && isSuccess
+                  !weatherApiSearchData?.length && searchQuery
                     ? "Oops! We couldn't find the city you're searching for. Please double-check the spelling and try again."
                     : 'Stay informed about the weather! Enter a city name to track the current weather conditions and forecast'
                 }
