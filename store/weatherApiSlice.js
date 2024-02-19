@@ -33,7 +33,7 @@ export const weatherApi = createApi({
         url: '/current.json',
         params: {
           q: queryName,
-          aqi: 'no',
+          aqi: 'yes',
         },
       }),
     }),

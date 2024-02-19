@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   PollutantDetailsGroup,
   PollutantIndex,
   PollutantScaleGroup,
 } from '../../components/AirQuality';
 import {Title, ScrollViewContainer} from '../../components/UI';
-import {useGetForecastQuery} from '../../store/weatherApiSlice';
+import {
+  useGetCurrentQuery,
+  useGetForecastQuery,
+} from '../../store/weatherApiSlice';
 import {weatherApiData} from '../../data/WeatherApiData';
+import {useSelector} from 'react-redux';
 
 function AqiDetails() {
-  // const {data: data1} = useGetForecastQuery();
-  // console.log(data1);
-  const {air_quality} = weatherApiData.current;
+  const {trackedCity} = useSelector(store => store.globalState);
+  const {currentData} = useGetForecastQuery(trackedCity.url);
+  const {air_quality} = currentData.current;
+  // const {air_quality} = weatherApiData.current;
   return (
     <ScrollViewContainer>
       <PollutantIndex

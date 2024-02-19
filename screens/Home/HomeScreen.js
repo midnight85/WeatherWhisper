@@ -24,10 +24,7 @@ import {
   SearchClear,
 } from '../../components/Icons';
 import {PollutantIndex} from '../../components/AirQuality';
-import {
-  useGetForecastQuery,
-  useGetSearchQuery,
-} from '../../store/weatherApiSlice';
+import {useGetForecastQuery} from '../../store/weatherApiSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {getTodayFromForecast} from '../../utils/getTodayFromForecast';
 import {getNearestHourData} from '../../utils/getNearestHourData';

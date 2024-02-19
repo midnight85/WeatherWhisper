@@ -57,7 +57,7 @@ const Stack = createStackNavigator();
 function Main() {
   return (
     <BottomTabs.Navigator
-      // initialRouteName={FAVORITES_SCREEN}
+      initialRouteName={HOME_SCREEN}
       screenOptions={{
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
